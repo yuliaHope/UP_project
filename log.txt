@@ -1,0 +1,11 @@
+commit 1ed30d367fa5026d428b1c5e9efcb9a09b5d429e
+Author: yuliaHope <yulia.galuzo9771@gmail.com>
+Date:   Tue Feb 9 21:22:44 2016 +0300
+
+    add status.txt
+
+commit c965c3dc5ad807c4209ced76e21d7684ceffd59f
+Author: yuliaHope <yulia.galuzo9771@gmail.com>
+Date:   Tue Feb 9 21:21:36 2016 +0300
+
+    add .gitignore
