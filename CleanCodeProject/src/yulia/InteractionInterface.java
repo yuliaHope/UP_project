@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.List;
 
 public class InteractionInterface {
     private BufferedReader br;
@@ -28,8 +29,7 @@ public class InteractionInterface {
         System.out.println("7 - view message history for a certain period");
         System.out.println("8 - save messages in file");
         System.out.println("9 - download messages from file");
-        System.out.println("0 - to change the operation");
-        System.out.println("-1 - exit");
+        System.out.println("0 - exit");
     }
 
     public void addMsg() throws IOException {
@@ -49,31 +49,59 @@ public class InteractionInterface {
         }
     }
 
-    public void viewCertainPeriod() throws IOException, ParseException {
+    public void viewCertainPeriod() throws IOException {
         System.out.println("Enter period from ... to ...(format: dd.MM.yyyy hh:mm)");
         String from = br.readLine();
         String to = br.readLine();
-        for (Message item : mh.historyPeriod(from, to)) {
-            System.out.println(item);
+        try {
+            for (Message item : mh.historyPeriod(from, to)) {
+                System.out.println(item);
+            }
+        } catch(ParseException e){
+            System.out.println("Invalid input. Try again.");
         }
     }
 
     public void findAuthor() throws IOException {
         System.out.println("Enter author");
-        mh.searchAuthor(br.readLine());
+        String author = br.readLine();
+        List<Message> authorList =  mh.searchAuthor(author);
+        if(authorList.size() == 0) {
+            System.out.println(author + " was not found");
+            return;
+        }
+        for (Message item : authorList) {
+            System.out.println(item);
+        }
     }
 
     public void findToken() throws IOException {
         System.out.println("Enter token");
-        mh.searchToken(br.readLine());
+        String token = br.readLine();
+        List<Message> tokenList =  mh.searchToken(token);
+        if(tokenList.size() == 0) {
+            System.out.println(token + " was not found");
+            return;
+        }
+        for (Message item :tokenList ) {
+            System.out.println(item);
+        }
     }
 
     public void findRejex() throws IOException {
         System.out.println("Enter rejex");
-        mh.searchRejex(br.readLine());
+        String rejex = br.readLine();
+        List<Message> rejexList =  mh.searchRejex(rejex);
+        if(rejexList.size() == 0) {
+            System.out.println(rejex + " was not found");
+            return;
+        }
+        for (Message item : rejexList) {
+            System.out.println(item);
+        }
     }
 
-    public void readFile() throws IOException, ParseException {
+    public void readFile() throws IOException, ParseException, org.json.simple.parser.ParseException {
         System.out.println("Input fileName (*.json)");
         mh.addMessages(Read.read(br.readLine(), jf));
     }
@@ -83,17 +111,18 @@ public class InteractionInterface {
         Write.write(jf, mh, br.readLine());
     }
 
-    public void workFile(int answer) throws IOException, ParseException {
+    public void workFile(int answer) throws IOException, ParseException, org.json.simple.parser.ParseException {
         switch (answer) {
-            case 8: {
+            case 9: {
                 readFile();
                 break;
             }
-            case 9: {
+            case 8: {
                 saveFile();
                 break;
             }
         }
+        System.out.println("Enter the operation number");
     }
 
     public void viewHistory(int answer) throws IOException, ParseException {
@@ -107,6 +136,7 @@ public class InteractionInterface {
                 break;
             }
         }
+        System.out.println("Enter the operation number");
     }
 
     public void searchMessage(int answer) throws IOException {
@@ -125,6 +155,7 @@ public class InteractionInterface {
                 break;
             }
         }
+        System.out.println("Enter the operation number");
     }
 
     public void actionMsg(int answer) throws IOException {
@@ -138,26 +169,30 @@ public class InteractionInterface {
                 break;
             }
         }
+        System.out.println("Enter the operation number");
     }
 
-    public void answerInquiry() throws IOException, ParseException {
+    public void answerInquiry() throws IOException, ParseException, org.json.simple.parser.ParseException {
         boolean flag = true;
-        int answer = Integer.parseInt(br.readLine());
+        int answer;
         while (flag) {
-            if (answer == 1 || answer == 2) {
-                actionMsg(answer);
-            } else if (answer == 3 || answer == 7) {
-                viewHistory(answer);
-            } else if (answer >= 4 && answer <= 6) {
-                searchMessage(answer);
-            } else if (answer == 8 || answer == 9) {
-                workFile(answer);
-            } else if (answer == 0){
+            try {
                 answer = Integer.parseInt(br.readLine());
-            }
-            else if (answer == -1){
-                flag = false;
-                System.out.println("Goodbye:)");
+                if (answer == 1 || answer == 2) {
+                    actionMsg(answer);
+                } else if (answer == 3 || answer == 7) {
+                    viewHistory(answer);
+                } else if (answer >= 4 && answer <= 6) {
+                    searchMessage(answer);
+                } else if (answer == 8 || answer == 9) {
+                    workFile(answer);
+                } else if (answer == 0) {
+                    flag = false;
+                    System.out.println("Goodbye:)");
+                } else
+                    System.out.println("Invalid input. Try again.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Try again.");
             }
         }
     }

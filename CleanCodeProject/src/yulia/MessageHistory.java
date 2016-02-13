@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MessageHistory {
     private List<Message> list;
@@ -13,24 +15,25 @@ public class MessageHistory {
         list = new ArrayList<Message>();
     }
 
-    public MessageHistory(List<Message> list) {
-        this.list = new ArrayList<Message>(list);
-    }
-
     public void addMessage(Message msg) {
         list.add(msg);
     }
 
-    public void addMessages(MessageHistory mh){
-        list.addAll(mh.getList());
-    }
+    public void addMessages(MessageHistory mh) {
+        try {
+            list.addAll(mh.getList());
+        } catch (NullPointerException e) {
 
-    public void cleanMessageHistory() {
-        list.clear();
+        }
     }
 
     public void deleteMessageId(String id) {
-        list.remove(id);
+        for (Message item : list) {
+            if (item.getId().equals(id)) {
+                list.remove(item);
+                break;
+            }
+        }
     }
 
     public void sortChronological() {
@@ -44,7 +47,7 @@ public class MessageHistory {
         Date toD = format.parse(to);
         List<Message> periodList = new ArrayList<Message>();
         for (Message item : list) {
-            if (item.getTimestamp().compareTo(fromD) > 0 && item.getTimestamp().compareTo(toD) < 0)
+            if (item.getTimestamp().compareTo(fromD) >= 0 && item.getTimestamp().compareTo(toD) <= 0)
                 periodList.add(item);
         }
         return periodList;
@@ -68,10 +71,12 @@ public class MessageHistory {
         return authorList;
     }
 
-    public List<Message> searchRejex(String token) {
+    public List<Message> searchRejex(String rejex) {
         List<Message> rejexList = new ArrayList<Message>();
+        Pattern p = Pattern.compile(rejex);
         for (Message item : list) {
-            if (item.getMessage().matches(token))
+            Matcher m = p.matcher(item.getMessage());
+            if (m.find())
                 rejexList.add(item);
         }
         return rejexList;

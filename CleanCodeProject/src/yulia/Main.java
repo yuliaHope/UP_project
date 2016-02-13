@@ -11,11 +11,13 @@ public class Main {
             System.err.println(e.getMessage());
         } catch (ParseException e){
             System.err.println(e.getMessage());
+        } catch(org.json.simple.parser.ParseException e){
+            System.err.println(e.getMessage());
         }
 
     }
 
-    public static void run()throws IOException, ParseException{
+    public static void run()throws IOException, ParseException, org.json.simple.parser.ParseException{
         InteractionInterface ii = new InteractionInterface();
         ii.printFacilities();
         ii.answerInquiry();

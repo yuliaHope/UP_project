@@ -1,12 +1,9 @@
 package yulia;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonWriter;
-import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class JSONFile {
     private BufferedReader br;
@@ -17,6 +14,7 @@ public class JSONFile {
             br = new BufferedReader(new FileReader(fileName));
             return true;
         } catch (IOException e) {
+            System.err.println(e.getMessage());
             return false;
         }
     }
@@ -26,6 +24,7 @@ public class JSONFile {
             pw = new PrintWriter(fileName);
             return true;
         } catch (IOException e) {
+            System.err.println(e.getMessage());
             return false;
         }
     }
@@ -47,28 +46,7 @@ public class JSONFile {
         return sb.toString();
     }
 
-    public void output(Message msg) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-        JsonObject object = Json.createObjectBuilder().add("id", msg.getId())
-                .add("Author", msg.getAuthor())
-                .add("Message", msg.getMessage())
-                .add("Timestamp", format.format(msg.getTimestamp()))
-                .build();
-        StringWriter buffer = new StringWriter();
-        JsonWriter writer = Json.createWriter(buffer);
-        writer.writeObject(object);
-        writer.close();
-        pw.print(buffer.getBuffer().toString());
-    }
-
-    public Message input(/*String msgJSONInfo*/JsonObject object) throws ParseException{
-//        JsonReader reader = Json.createReader(new StringReader(msgJSONInfo));
-//        JsonObject object = reader.readObject();
-//        reader.close();
-        SimpleDateFormat format = new SimpleDateFormat();
-        format.applyPattern("dd.MM.yyyy hh:mm");
-        Date timestamp= format.parse(object.getString("Timestamp"));
-        Message msg = new Message(object.getInt("id"), object.getString("Author"), object.getString("Message"), timestamp);
-        return msg;
+    public void printText(String text){
+        pw.println(text);
     }
 }
