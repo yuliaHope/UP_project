@@ -5,21 +5,22 @@ import java.text.ParseException;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            run();
-        } catch(IOException e){
-            System.err.println(e.getMessage());
-        } catch (ParseException e){
-            System.err.println(e.getMessage());
-        } catch(org.json.simple.parser.ParseException e){
-            System.err.println(e.getMessage());
-        }
-
+        run();
     }
 
-    public static void run()throws IOException, ParseException, org.json.simple.parser.ParseException{
+    public static void run(){
         InteractionInterface ii = new InteractionInterface();
-        ii.printFacilities();
-        ii.answerInquiry();
+        try {
+            ii.printFacilities();
+            ii.answerInquiry();
+        }
+        catch(IOException e){
+            ii.logErr(e.getMessage());
+        } catch (ParseException e){
+            ii.logErr(e.getMessage());
+        } catch(org.json.simple.parser.ParseException e){
+            ii.logErr(e.getMessage());
+        }
+
     }
 }

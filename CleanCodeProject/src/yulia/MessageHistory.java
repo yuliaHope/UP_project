@@ -1,5 +1,7 @@
 package yulia;
 
+import org.apache.log4j.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,13 +29,15 @@ public class MessageHistory {
         }
     }
 
-    public void deleteMessageId(String id) {
+    public void deleteMessageId(String id, Logger LOG) {
         for (Message item : list) {
             if (item.getId().equals(id)) {
+                LOG.info("Delete message.\n" + item);
                 list.remove(item);
                 break;
             }
         }
+        LOG.info("Failed to delete the message. This id was not found");
     }
 
     public void sortChronological() {

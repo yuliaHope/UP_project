@@ -1,22 +1,26 @@
 package yulia;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.List;
 
+
 public class InteractionInterface {
     private BufferedReader br;
     private MessageHistory mh;
     private JSONFile jf;
+    private static final Logger LOG = Logger.getLogger(InteractionInterface.class);
 
     public InteractionInterface() {
         br = new BufferedReader(new InputStreamReader(System.in));
         mh = new MessageHistory();
         jf = new JSONFile();
-    }
 
+    }
 
     public void printFacilities() {
         System.out.println("Enter number from 0 to 9");
@@ -32,18 +36,29 @@ public class InteractionInterface {
         System.out.println("0 - exit");
     }
 
+    public void logErr(String str) {
+        LOG.error(str);
+    }
+
     public void addMsg() throws IOException {
         System.out.println("Enter author, then message");
-        mh.addMessage(new Message(br.readLine(), br.readLine()));
+        Message msg = new Message(br.readLine(), br.readLine());
+        mh.addMessage(msg);
+        LOG.info("Add message.\n" + msg);
     }
 
     public void removeId() throws IOException {
         System.out.println("Enter id");
-        mh.deleteMessageId(br.readLine());
+        mh.deleteMessageId(br.readLine(), LOG);
     }
 
-    public void viewCronological() throws IOException {
+    public void viewChronological() throws IOException {
         mh.sortChronological();
+        if (mh.getList().size() == 0) {
+            LOG.warn("message history is empty");
+            return;
+        }
+        LOG.info("view message history in chronological order");
         for (Message item : mh.getList()) {
             System.out.println(item);
         }
@@ -53,62 +68,76 @@ public class InteractionInterface {
         System.out.println("Enter period from ... to ...(format: dd.MM.yyyy hh:mm)");
         String from = br.readLine();
         String to = br.readLine();
+        List<Message> periodList;
         try {
-            for (Message item : mh.historyPeriod(from, to)) {
+            periodList = mh.historyPeriod(from, to);
+            for (Message item : periodList) {
                 System.out.println(item);
             }
-        } catch(ParseException e){
-            System.out.println("Invalid input. Try again.");
+            LOG.info("view message history from " + from + " to " + to);
+        } catch (ParseException e){
+            LOG.error("Invalid date format");
+        } catch (NullPointerException e){
+            LOG.warn("message history from " + from + " to " + to + " was not found");
         }
     }
 
     public void findAuthor() throws IOException {
         System.out.println("Enter author");
         String author = br.readLine();
-        List<Message> authorList =  mh.searchAuthor(author);
-        if(authorList.size() == 0) {
-            System.out.println(author + " was not found");
+        List<Message> authorList = mh.searchAuthor(author);
+        if (authorList.size() == 0) {
+            LOG.warn("Find message by author:" + author + " was not found");
             return;
         }
         for (Message item : authorList) {
             System.out.println(item);
+            LOG.info("Find message by author:" + author + " " + item);
         }
     }
 
     public void findToken() throws IOException {
         System.out.println("Enter token");
         String token = br.readLine();
-        List<Message> tokenList =  mh.searchToken(token);
-        if(tokenList.size() == 0) {
-            System.out.println(token + " was not found");
+        List<Message> tokenList = mh.searchToken(token);
+        if (tokenList.size() == 0) {
+            LOG.warn("Find message by token:" + token + " was not found");
             return;
         }
-        for (Message item :tokenList ) {
+        for (Message item : tokenList) {
             System.out.println(item);
+            LOG.info("Find message by token:" + token + " " + item);
         }
     }
 
     public void findRejex() throws IOException {
         System.out.println("Enter rejex");
         String rejex = br.readLine();
-        List<Message> rejexList =  mh.searchRejex(rejex);
-        if(rejexList.size() == 0) {
-            System.out.println(rejex + " was not found");
+        List<Message> rejexList = mh.searchRejex(rejex);
+        if (rejexList.size() == 0) {
+            LOG.warn("Find message by rejex:" + rejex + " was not found");
             return;
         }
         for (Message item : rejexList) {
             System.out.println(item);
+            LOG.info("Find message by token:" + rejex + " " + item);
         }
     }
 
     public void readFile() throws IOException, ParseException, org.json.simple.parser.ParseException {
         System.out.println("Input fileName (*.json)");
-        mh.addMessages(Read.read(br.readLine(), jf));
+        String fileName = br.readLine();
+        mh.addMessages(Read.read(fileName, jf));
+        LOG.info("read messages from " + fileName);
+
     }
 
     public void saveFile() throws IOException {
         System.out.println("Input fileName (*.json)");
-        Write.write(jf, mh, br.readLine());
+        String fileName = br.readLine();
+        Write.write(jf, mh, fileName);
+        LOG.info("Save messages in " + fileName);
+
     }
 
     public void workFile(int answer) throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -128,7 +157,7 @@ public class InteractionInterface {
     public void viewHistory(int answer) throws IOException, ParseException {
         switch (answer) {
             case 3: {
-                viewCronological();
+                viewChronological();
                 break;
             }
             case 7: {
@@ -189,10 +218,11 @@ public class InteractionInterface {
                 } else if (answer == 0) {
                     flag = false;
                     System.out.println("Goodbye:)");
-                } else
-                    System.out.println("Invalid input. Try again.");
+                } else {
+                    LOG.warn("Invalid input. Try again.");
+                }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Try again.");
+                LOG.warn("Invalid input. Try again.");
             }
         }
     }
