@@ -14,7 +14,7 @@ public class Write {
                 return;
             }
             JSONArray array = new JSONArray();
-            for(Message item : mh.getList()){
+            for(Message item : mh.getList()) {
                 array.add(item.convertToJson());
             }
             StringWriter sw = new StringWriter();

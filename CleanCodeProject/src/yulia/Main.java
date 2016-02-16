@@ -14,9 +14,7 @@ public class Main {
             ii.printFacilities();
             ii.answerInquiry();
         }
-        catch(IOException e){
-            ii.logErr(e.getMessage());
-        } catch (ParseException e){
+        catch(IOException | ParseException e){
             ii.logErr(e.getMessage());
         } catch(org.json.simple.parser.ParseException e){
             ii.logErr(e.getMessage());

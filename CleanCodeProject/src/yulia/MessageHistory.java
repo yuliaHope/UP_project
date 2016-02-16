@@ -1,7 +1,5 @@
 package yulia;
 
-import org.apache.log4j.Logger;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ public class MessageHistory {
     private List<Message> list;
 
     public MessageHistory() {
-        list = new ArrayList<Message>();
+        list = new ArrayList<>();
     }
 
     public void addMessage(Message msg) {
@@ -24,20 +22,19 @@ public class MessageHistory {
     public void addMessages(MessageHistory mh) {
         try {
             list.addAll(mh.getList());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
 
         }
     }
 
-    public void deleteMessageId(String id, Logger LOG) {
+    public boolean deleteMessageId(String id) {
         for (Message item : list) {
             if (item.getId().equals(id)) {
-                LOG.info("Delete message.\n" + item);
                 list.remove(item);
-                break;
+                return true;
             }
         }
-        LOG.info("Failed to delete the message. This id was not found");
+        return false;
     }
 
     public void sortChronological() {
@@ -49,16 +46,15 @@ public class MessageHistory {
         format.applyPattern("dd.MM.yyyy hh:mm");
         Date fromD = format.parse(from);
         Date toD = format.parse(to);
-        List<Message> periodList = new ArrayList<Message>();
-        for (Message item : list) {
+        List<Message> periodList = new ArrayList<>();
+        for (Message item : list)
             if (item.getTimestamp().compareTo(fromD) >= 0 && item.getTimestamp().compareTo(toD) <= 0)
                 periodList.add(item);
-        }
         return periodList;
     }
 
     public List<Message> searchAuthor(String author) {
-        List<Message> authorList = new ArrayList<Message>();
+        List<Message> authorList = new ArrayList<>();
         for (Message item : list) {
             if (item.getAuthor().equals(author))
                 authorList.add(item);
@@ -67,16 +63,15 @@ public class MessageHistory {
     }
 
     public List<Message> searchToken(String token) {
-        List<Message> authorList = new ArrayList<Message>();
-        for (Message item : list) {
+        List<Message> authorList = new ArrayList<>();
+        for (Message item : list)
             if (item.getMessage().contains(token))
                 authorList.add(item);
-        }
         return authorList;
     }
 
     public List<Message> searchRejex(String rejex) {
-        List<Message> rejexList = new ArrayList<Message>();
+        List<Message> rejexList = new ArrayList<>();
         Pattern p = Pattern.compile(rejex);
         for (Message item : list) {
             Matcher m = p.matcher(item.getMessage());

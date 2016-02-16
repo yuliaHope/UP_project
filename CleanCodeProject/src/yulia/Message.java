@@ -15,8 +15,8 @@ public class Message {
 
     public Message(String author, String message) {
         id = RandomStringUtils.random(32, 0, 20, true, true, "qw32rfHIJk9iQ8Ud7h0X".toCharArray());
-        this.message = new String(message);
-        this.author = new String(author);
+        this.message = message;
+        this.author = author;
         timestamp = new Date();
     }
 
@@ -25,7 +25,7 @@ public class Message {
         id = (String) object.get("id");
         author = (String) object.get("Author");
         message = (String) object.get("Message");
-        timestamp = format.parse((String)object.get("Timestamp"));
+        timestamp = format.parse((String) object.get("Timestamp"));
     }
 
     public JSONObject convertToJson() {
@@ -56,16 +56,23 @@ public class Message {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append("\n").append(author).append("\n");
-        sb.append(message).append("\n").append(timestamp);
-        return sb.toString();
+        return id + "\n" + author + "\n" +
+                message + "\n" + timestamp;
     }
 
     @Override
     public boolean equals(Object o) {
-        Message messageId = (Message) o;
-        return id.equals(messageId.getId());
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+
+        Message message = (Message) o;
+
+        return id != null ? id.equals(message.id) : message.id == null;
+
     }
 
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

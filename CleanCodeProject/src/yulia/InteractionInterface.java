@@ -49,7 +49,11 @@ public class InteractionInterface {
 
     public void removeId() throws IOException {
         System.out.println("Enter id");
-        mh.deleteMessageId(br.readLine(), LOG);
+        String id = br.readLine();
+        if (mh.deleteMessageId(id)) {
+            LOG.info("Delete message with id: " + id);
+        } else
+            LOG.warn("Failed to delete the message. This id was not found");
     }
 
     public void viewChronological() throws IOException {
@@ -75,9 +79,9 @@ public class InteractionInterface {
                 System.out.println(item);
             }
             LOG.info("view message history from " + from + " to " + to);
-        } catch (ParseException e){
+        } catch (ParseException e) {
             LOG.error("Invalid date format");
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             LOG.warn("message history from " + from + " to " + to + " was not found");
         }
     }
