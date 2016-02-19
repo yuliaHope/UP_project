@@ -9,15 +9,15 @@ public class Main {
     }
 
     public static void run(){
-        InteractionInterface ii = new InteractionInterface();
+        InteractionInterface interInterface = new InteractionInterface();
         try {
-            ii.printFacilities();
-            ii.answerInquiry();
+            interInterface.printFacilities();
+            interInterface.answerInquiry();
         }
         catch(IOException | ParseException e){
-            ii.logErr(e.getMessage());
+            interInterface.logErr(e.getMessage());
         } catch(org.json.simple.parser.ParseException e){
-            ii.logErr(e.getMessage());
+            interInterface.logErr(e.getMessage());
         }
 
     }

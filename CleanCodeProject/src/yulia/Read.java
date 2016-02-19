@@ -8,18 +8,18 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class Read {
-    public static MessageHistory read(String fileName, JSONFile jf) throws IOException, org.json.simple.parser.ParseException, ParseException {
-        MessageHistory mh = new MessageHistory();
+    public static MessageHistory read(String fileName, WorkFile jf) throws IOException, org.json.simple.parser.ParseException, ParseException {
+        MessageHistory msgHistory = new MessageHistory();
         if (jf.openInputFile(fileName)) {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(jf.read());
             for (Object o : array)
             {
                 JSONObject msg = (JSONObject) o;
-                mh.addMessage(new Message(msg));
+                msgHistory.addMessage(new Message(msg));
             }
             jf.closeInputFile();
-            return mh;
+            return msgHistory;
         }
         return null;
     }

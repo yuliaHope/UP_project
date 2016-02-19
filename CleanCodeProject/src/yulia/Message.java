@@ -9,13 +9,13 @@ import java.util.Date;
 
 public class Message {
     private String id;
-    private String message;
+    private String messageText;
     private String author;
     private Date timestamp;
 
-    public Message(String author, String message) {
+    public Message(String author, String messageText) {
         id = RandomStringUtils.random(32, 0, 20, true, true, "qw32rfHIJk9iQ8Ud7h0X".toCharArray());
-        this.message = message;
+        this.messageText = messageText;
         this.author = author;
         timestamp = new Date();
     }
@@ -24,16 +24,17 @@ public class Message {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         id = (String) object.get("id");
         author = (String) object.get("Author");
-        message = (String) object.get("Message");
+        messageText = (String) object.get("Message");
         timestamp = format.parse((String) object.get("Timestamp"));
     }
 
+    @SuppressWarnings("unchecked")
     public JSONObject convertToJson() {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         JSONObject object = new JSONObject();
         object.put("id", id);
         object.put("Author", author);
-        object.put("Message", message);
+        object.put("Message", messageText);
         object.put("Timestamp", format.format(timestamp));
         return object;
     }
@@ -42,8 +43,8 @@ public class Message {
         return id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageText() {
+        return messageText;
     }
 
     public String getAuthor() {
@@ -57,7 +58,7 @@ public class Message {
     @Override
     public String toString() {
         return id + "\n" + author + "\n" +
-                message + "\n" + timestamp;
+                messageText + "\n" + timestamp;
     }
 
     @Override

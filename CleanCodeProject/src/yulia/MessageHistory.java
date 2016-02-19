@@ -9,28 +9,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MessageHistory {
-    private List<Message> list;
+    private List<Message> messagesList;
 
     public MessageHistory() {
-        list = new ArrayList<>();
+        messagesList = new ArrayList<>();
     }
 
     public void addMessage(Message msg) {
-        list.add(msg);
+        messagesList.add(msg);
     }
 
-    public void addMessages(MessageHistory mh) {
+    public void addMessages(MessageHistory msgHistory) {
         try {
-            list.addAll(mh.getList());
+            messagesList.addAll(msgHistory.getMessagesList());
         } catch (NullPointerException ignored) {
 
         }
     }
 
     public boolean deleteMessageId(String id) {
-        for (Message item : list) {
+        for (Message item : messagesList) {
             if (item.getId().equals(id)) {
-                list.remove(item);
+                messagesList.remove(item);
                 return true;
             }
         }
@@ -38,24 +38,25 @@ public class MessageHistory {
     }
 
     public void sortChronological() {
-        list.sort((a, b) -> (a.getTimestamp().compareTo(b.getTimestamp())));
+        messagesList.sort((a, b) -> (a.getTimestamp().compareTo(b.getTimestamp())));
     }
 
-    public List<Message> historyPeriod(String from, String to) throws ParseException {
+    public List<Message> historyPeriod(String dateFrom, String dateTo) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("dd.MM.yyyy hh:mm");
-        Date fromD = format.parse(from);
-        Date toD = format.parse(to);
+        Date fromD = format.parse(dateFrom);
+        Date toD = format.parse(dateTo);
         List<Message> periodList = new ArrayList<>();
-        for (Message item : list)
+        for (Message item : messagesList) {
             if (item.getTimestamp().compareTo(fromD) >= 0 && item.getTimestamp().compareTo(toD) <= 0)
                 periodList.add(item);
+        }
         return periodList;
     }
 
     public List<Message> searchAuthor(String author) {
         List<Message> authorList = new ArrayList<>();
-        for (Message item : list) {
+        for (Message item : messagesList) {
             if (item.getAuthor().equals(author))
                 authorList.add(item);
         }
@@ -64,8 +65,8 @@ public class MessageHistory {
 
     public List<Message> searchToken(String token) {
         List<Message> authorList = new ArrayList<>();
-        for (Message item : list)
-            if (item.getMessage().contains(token))
+        for (Message item : messagesList)
+            if (item.getMessageText().contains(token))
                 authorList.add(item);
         return authorList;
     }
@@ -73,8 +74,8 @@ public class MessageHistory {
     public List<Message> searchRejex(String rejex) {
         List<Message> rejexList = new ArrayList<>();
         Pattern p = Pattern.compile(rejex);
-        for (Message item : list) {
-            Matcher m = p.matcher(item.getMessage());
+        for (Message item : messagesList) {
+            Matcher m = p.matcher(item.getMessageText());
             if (m.find())
                 rejexList.add(item);
         }
@@ -82,7 +83,7 @@ public class MessageHistory {
     }
 
 
-    public List<Message> getList() {
-        return list;
+    public List<Message> getMessagesList() {
+        return messagesList;
     }
 }

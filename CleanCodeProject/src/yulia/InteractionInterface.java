@@ -11,14 +11,14 @@ import java.util.List;
 
 public class InteractionInterface {
     private BufferedReader br;
-    private MessageHistory mh;
-    private JSONFile jf;
+    private MessageHistory msgHistory;
+    private WorkFile workFile;
     private static final Logger LOG = Logger.getLogger(InteractionInterface.class);
 
     public InteractionInterface() {
         br = new BufferedReader(new InputStreamReader(System.in));
-        mh = new MessageHistory();
-        jf = new JSONFile();
+        msgHistory = new MessageHistory();
+        workFile = new WorkFile();
 
     }
 
@@ -43,53 +43,53 @@ public class InteractionInterface {
     public void addMsg() throws IOException {
         System.out.println("Enter author, then message");
         Message msg = new Message(br.readLine(), br.readLine());
-        mh.addMessage(msg);
+        msgHistory.addMessage(msg);
         LOG.info("Add message.\n" + msg);
     }
 
     public void removeId() throws IOException {
         System.out.println("Enter id");
         String id = br.readLine();
-        if (mh.deleteMessageId(id)) {
+        if (msgHistory.deleteMessageId(id)) {
             LOG.info("Delete message with id: " + id);
         } else
             LOG.warn("Failed to delete the message. This id was not found");
     }
 
     public void viewChronological() throws IOException {
-        mh.sortChronological();
-        if (mh.getList().size() == 0) {
+        if (msgHistory.getMessagesList().size() == 0) {
             LOG.warn("message history is empty");
             return;
         }
+        msgHistory.sortChronological();
         LOG.info("view message history in chronological order");
-        for (Message item : mh.getList()) {
+        for (Message item : msgHistory.getMessagesList()) {
             System.out.println(item);
         }
     }
 
     public void viewCertainPeriod() throws IOException {
         System.out.println("Enter period from ... to ...(format: dd.MM.yyyy hh:mm)");
-        String from = br.readLine();
-        String to = br.readLine();
+        String dateFrom = br.readLine();
+        String dateTo = br.readLine();
         List<Message> periodList;
         try {
-            periodList = mh.historyPeriod(from, to);
+            periodList = msgHistory.historyPeriod(dateFrom, dateTo);
             for (Message item : periodList) {
                 System.out.println(item);
             }
-            LOG.info("view message history from " + from + " to " + to);
+            LOG.info("view message history from " + dateFrom + " to " + dateTo);
         } catch (ParseException e) {
             LOG.error("Invalid date format");
         } catch (NullPointerException e) {
-            LOG.warn("message history from " + from + " to " + to + " was not found");
+            LOG.warn("message history from " + dateFrom + " to " + dateTo + " was not found");
         }
     }
 
     public void findAuthor() throws IOException {
         System.out.println("Enter author");
         String author = br.readLine();
-        List<Message> authorList = mh.searchAuthor(author);
+        List<Message> authorList = msgHistory.searchAuthor(author);
         if (authorList.size() == 0) {
             LOG.warn("Find message by author:" + author + " was not found");
             return;
@@ -103,7 +103,7 @@ public class InteractionInterface {
     public void findToken() throws IOException {
         System.out.println("Enter token");
         String token = br.readLine();
-        List<Message> tokenList = mh.searchToken(token);
+        List<Message> tokenList = msgHistory.searchToken(token);
         if (tokenList.size() == 0) {
             LOG.warn("Find message by token:" + token + " was not found");
             return;
@@ -117,7 +117,7 @@ public class InteractionInterface {
     public void findRejex() throws IOException {
         System.out.println("Enter rejex");
         String rejex = br.readLine();
-        List<Message> rejexList = mh.searchRejex(rejex);
+        List<Message> rejexList = msgHistory.searchRejex(rejex);
         if (rejexList.size() == 0) {
             LOG.warn("Find message by rejex:" + rejex + " was not found");
             return;
@@ -131,7 +131,7 @@ public class InteractionInterface {
     public void readFile() throws IOException, ParseException, org.json.simple.parser.ParseException {
         System.out.println("Input fileName (*.json)");
         String fileName = br.readLine();
-        mh.addMessages(Read.read(fileName, jf));
+        msgHistory.addMessages(Read.read(fileName, workFile));
         LOG.info("read messages from " + fileName);
 
     }
@@ -139,7 +139,7 @@ public class InteractionInterface {
     public void saveFile() throws IOException {
         System.out.println("Input fileName (*.json)");
         String fileName = br.readLine();
-        Write.write(jf, mh, fileName);
+        Write.write(workFile, msgHistory, fileName);
         LOG.info("Save messages in " + fileName);
 
     }

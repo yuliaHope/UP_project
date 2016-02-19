@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class JSONFile {
+public class WorkFile {
     private BufferedReader br;
     private PrintWriter pw;
 
