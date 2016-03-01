@@ -1,29 +1,39 @@
 body {
-    font: 14px 'Verdana';
     margin: 0;
     padding: 0;
-    opacity: .99;
+    width: 100%;
+    max-height: 1080px;
+    max-width: 1920px;
 }
 
 header {
     background-color: rgb(93, 6, 24);
     position: fixed;
-    height: 80px;
-    width: 1360px;
+    top: 0%;
+    height: 13%;
+    min-height: 7%;
+    width: 100%;
     color: white;
     text-align: center;
-    padding: 5px;
+    font-size: 100%;
+    padding: 0.26%;
 }
 
 nav {
-    line-height: 30px;
+    line-height: 2.8%;
     background-color: #eeeeee;
     position: fixed;
-    top: 280px;
-    height: 100px;
-    width: 170px;
-    left: 267px;
-    padding: 5px;
+    top: 45%; /*280*/
+    height: 15%;
+    width: 12.3%;
+    left: 19.5%;
+    padding: 0.26%;
+}
+
+nav ul li a {
+    font-size: 95%;
+    display: block;
+    text-align: left;
 }
 
 nav, nav ul {
@@ -34,39 +44,45 @@ nav, nav ul {
 
 div.userPhoto {
     position: fixed;
-    top: 95px;
-    left: 260px;
-    padding: 5px;
+    top: 15%;
+    left: 19.5%;
+    padding: 0.26%;
 }
 
 .userPhoto img#mainPhoto {
-    border: 10px solid #fff;
-    border-bottom: 45px solid #fff;
-    box-shadow: 3px 3px 3px #777;
+    width: 15%;
+    border: 0.65em solid #fff;
+    border-bottom: 3em solid #fff;
+    box-shadow: 0.2em 0.2em 0.2em #777;
+    max-width: 100%;
+    height: auto;
 }
 
 .userPhoto p {
     position: absolute;
     text-align: left;
     width: 100%;
-    bottom: 0px;
-    font: 400 18px/1 'Kaushan Script', cursive;
+    bottom: 0%;
+    font: 400 100%/1 'Kaushan Script', cursive;
     color: #888;
 }
 
 .userPhoto img.server {
     position: absolute;
-    left: 150px;
-    bottom: 5px;
+    left: 12%;
+    bottom: 4%;
+    width: 5%;
+    max-width: 100%;
+    height: auto;
 }
 
 section {
-    position: relative;
-    top: 100px;
-    height: 400px;
-    width: 550px;
-    left: 450px;
-    padding: 10px;
+    position: fixed;
+    top: 15%;
+    height: 63%;
+    width: 45%;
+    left: 33%;
+    padding: 1%;
     background-color: #F8F8FF;
     overflow-y: auto;
     overflow-x: hidden;
@@ -80,10 +96,10 @@ ul {
 
 li.Message {
     float: right;
-    width: 540px;
-    min-height: 10px;
+    width: 100%;
+    min-height: 1%;
     background-color: white;
-    margin: 2px;
+    margin: 0.2%;
     border-radius: 5%;
 }
 
@@ -91,9 +107,9 @@ li.deleteMessage {
     border-radius: 5%;
     background-color: #FFDAB9;
     float: right;
-    width: 540px;
-    min-height: 10px;
-    margin: 2px;
+    width: 100%;
+    min-height: 1%;
+    margin: 0.2%;
 }
 
 li.editMessage {
@@ -101,16 +117,16 @@ li.editMessage {
     border-radius: 5%;
     background-color: azure;
     float: right;
-    width: 540px;
-    min-height: 10px;
-    margin: 2px;
+    width: 100%;
+    min-height: 1%;
+    margin: 0.2%;
 }
 
 img.editIcon {
-    width: 25px;
+    width: 5%;
     position: absolute;
-    right: 1px;
-    bottom: 25px;
+    right: 0.1%;
+    bottom: 70%;
 }
 
 div.author {
@@ -118,25 +134,25 @@ div.author {
 }
 
 div.messageText {
-    padding: 3px;
+    padding: 0.26%;
     position: relative;
-    width: 460px;
+    width: 85%;
     font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
-    font-size: 11px;
+    font-size: 0.9em;
     line-height: 1.182;
     font-weight: normal;
 }
 
 div.timestamp a {
     position: relative;
-    left: 480px;
-    font-size: 10px;
-    bottom: 25px;
+    left: 90%;
+    font-size: 0.7em;
+    bottom: 10%;
     color: darkgrey;
 }
 
 img.icon {
-    width: 20px;
+    width: 15%;
 }
 
 footer {
@@ -144,22 +160,22 @@ footer {
     color: white;
     clear: both;
     text-align: center;
-    padding: 5px;
+    padding: 0.26%;
     position: fixed;
-    width: 1360px;
-    bottom: 1px;
+    width: 100%;
+    bottom: 0.01%;
 }
 
 #inputMessage {
     position: fixed;
-    bottom: 50px;
-    left: 450px;
-    height: 35px;
-    padding: 5px;
-    width: 450px;
+    bottom: 8%;
+    left: 33%;
+    height: 5%;
+    padding: 0.26%;
+    width: 33%;
 }
 
-#NewName{
+#NewName {
     position: fixed;
     top: 100px;
     width: 165px;
@@ -170,56 +186,61 @@ footer {
 
 #name {
     position: fixed;
-    top: 100px;
-    width: 165px;
+    top: 16%;
+    width: 12%;
     border-radius: 5%;
-    left: 600px;
-    padding: 5px;
+    left: 44%;
+    padding: 0.26%;
 }
 
 #password {
     position: fixed;
-    top: 150px;
-    width: 165px;
+    top: 23.5%;
+    width: 12%;
     border-radius: 5%;
-    left: 600px;
-    padding: 5px;
+    left: 44%;
+    padding: 0.26%;
 }
 
 #addMessage, #Rename, #addUser, #newUser {
     border-radius: 10%;
     background-color: rgb(93, 6, 24);
     color: white;
+    font-size: 90%;
     border: hidden;
 }
 
 #addMessage {
     position: fixed;
-    bottom: 63px;
-    left: 932px;
-    height: 30px;
-    width: 85px;
+    bottom: 10%;
+    left: 68%;
+    height: 5%;
+    width: 7%;
 }
 
 #Rename {
     position: fixed;
-    padding: 5px;
-    left: 390px;
-    top: 140px;
+    padding: 0.26%;
+    left: 29%;
+    top: 22%;
 }
+
 #addUser {
     position: fixed;
-    padding: 5px;
-    left: 600px;
-    top: 200px;
-    width: 85px;
+    padding: 0.26%;
+    left: 44%;
+    top: 31%;
+    height: 5%;
+    width: 6%;
 }
+
 #newUser {
     position: fixed;
-    padding: 5px;
-    left: 690px;
-    top: 200px;
-    width: 85px;
+    padding: 0.26%;
+    left: 51%;
+    top: 31%;
+    height: 5%;
+    width: 6%;
 }
 
 ul.nav, ul.nav ul, ul.nav li {
@@ -266,17 +287,63 @@ ul.nav .right {
 
 ul.nav a {
     display: block;
-    padding: 3px 0;
+    padding: 0.3% 0;
     color: black;
     text-decoration: none;
 }
 
 ul.nav ul a {
-    padding: 3px 15px;
+    padding: 0.3% 1%;
 }
 
 ul.nav li:hover {
     background-color: #F8F8FF;
+}
+
+@media screen and (max-width: 1020px) {
+    div.userPhoto {
+        left: 15%;
+    }
+
+    div.userPhoto p {
+        font-size: 60%;
+    }
+
+    nav {
+        top: 50%;
+        width: 16.5%;
+        left: 15%;
+    }
+
+    #addMessage {
+        bottom: 9%;
+        width: 12%;
+    }
+
+}
+
+@media screen and (max-width: 900px) {
+    #addMessage {
+        bottom: 12%;
+    }
+
+    #inputMessage {
+        bottom: 11%;
+    }
+
+    nav {
+        top: 50%;
+    }
+
+    img.icon {
+        width: 15%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    div.userPhoto {
+        display: none;
+    }
 }
 
 
