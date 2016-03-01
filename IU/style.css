@@ -1,0 +1,285 @@
+body {
+    font: 14px 'Verdana';
+    margin: 0;
+    padding: 0;
+    opacity: .99;
+}
+
+header {
+    background-color: rgb(93, 6, 24);
+    position: fixed;
+    height: 80px;
+    width: 1360px;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+nav {
+    line-height: 30px;
+    background-color: #eeeeee;
+    position: fixed;
+    top: 280px;
+    height: 100px;
+    width: 170px;
+    left: 267px;
+    padding: 5px;
+}
+
+nav, nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+div.userPhoto {
+    position: fixed;
+    top: 95px;
+    left: 260px;
+    padding: 5px;
+}
+
+.userPhoto img#mainPhoto {
+    border: 10px solid #fff;
+    border-bottom: 45px solid #fff;
+    box-shadow: 3px 3px 3px #777;
+}
+
+.userPhoto p {
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    bottom: 0px;
+    font: 400 18px/1 'Kaushan Script', cursive;
+    color: #888;
+}
+
+.userPhoto img.server {
+    position: absolute;
+    left: 150px;
+    bottom: 5px;
+}
+
+section {
+    position: relative;
+    top: 100px;
+    height: 400px;
+    width: 550px;
+    left: 450px;
+    padding: 10px;
+    background-color: #F8F8FF;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li.Message {
+    float: right;
+    width: 540px;
+    min-height: 10px;
+    background-color: white;
+    margin: 2px;
+    border-radius: 5%;
+}
+
+li.deleteMessage {
+    border-radius: 5%;
+    background-color: #FFDAB9;
+    float: right;
+    width: 540px;
+    min-height: 10px;
+    margin: 2px;
+}
+
+li.editMessage {
+    position: relative;
+    border-radius: 5%;
+    background-color: azure;
+    float: right;
+    width: 540px;
+    min-height: 10px;
+    margin: 2px;
+}
+
+img.editIcon {
+    width: 25px;
+    position: absolute;
+    right: 1px;
+    bottom: 25px;
+}
+
+div.author {
+    color: maroon;
+}
+
+div.messageText {
+    padding: 3px;
+    position: relative;
+    width: 460px;
+    font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
+    font-size: 11px;
+    line-height: 1.182;
+    font-weight: normal;
+}
+
+div.timestamp a {
+    position: relative;
+    left: 480px;
+    font-size: 10px;
+    bottom: 25px;
+    color: darkgrey;
+}
+
+img.icon {
+    width: 20px;
+}
+
+footer {
+    background-color: rgb(93, 6, 24);
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    width: 1360px;
+    bottom: 1px;
+}
+
+#inputMessage {
+    position: fixed;
+    bottom: 50px;
+    left: 450px;
+    height: 35px;
+    padding: 5px;
+    width: 450px;
+}
+
+#NewName{
+    position: fixed;
+    top: 100px;
+    width: 165px;
+    border-radius: 5%;
+    left: 267px;
+    padding: 5px;
+}
+
+#name {
+    position: fixed;
+    top: 100px;
+    width: 165px;
+    border-radius: 5%;
+    left: 600px;
+    padding: 5px;
+}
+
+#password {
+    position: fixed;
+    top: 150px;
+    width: 165px;
+    border-radius: 5%;
+    left: 600px;
+    padding: 5px;
+}
+
+#addMessage, #Rename, #addUser, #newUser {
+    border-radius: 10%;
+    background-color: rgb(93, 6, 24);
+    color: white;
+    border: hidden;
+}
+
+#addMessage {
+    position: fixed;
+    bottom: 63px;
+    left: 932px;
+    height: 30px;
+    width: 85px;
+}
+
+#Rename {
+    position: fixed;
+    padding: 5px;
+    left: 390px;
+    top: 140px;
+}
+#addUser {
+    position: fixed;
+    padding: 5px;
+    left: 600px;
+    top: 200px;
+    width: 85px;
+}
+#newUser {
+    position: fixed;
+    padding: 5px;
+    left: 690px;
+    top: 200px;
+    width: 85px;
+}
+
+ul.nav, ul.nav ul, ul.nav li {
+    margin: 0;
+    padding: 0;
+}
+
+ul.nav ul {
+    background: #FFDAB9;
+}
+
+ul.nav {
+    position: relative;
+    float: right;
+    display: table;
+    width: 30%;
+}
+
+ul.nav ul {
+    border-radius: 5%;
+    position: absolute;
+    z-index: 5;
+    display: none;
+}
+
+ul.nav li:hover ul {
+    display: block;
+    bottom: 100%;
+}
+
+ul.nav li {
+    display: inline;
+    text-align: right;
+}
+
+ul.nav ul li {
+    display: block;
+    text-align: left;
+}
+
+ul.nav .right {
+    direction: rtl;
+}
+
+ul.nav a {
+    display: block;
+    padding: 3px 0;
+    color: black;
+    text-decoration: none;
+}
+
+ul.nav ul a {
+    padding: 3px 15px;
+}
+
+ul.nav li:hover {
+    background-color: #F8F8FF;
+}
+
+
+
+
+
