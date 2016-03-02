@@ -23,7 +23,7 @@ nav {
     line-height: 2.8%;
     background-color: #eeeeee;
     position: fixed;
-    top: 45%; /*280*/
+    top: 45%;
     height: 15%;
     width: 12.3%;
     left: 19.5%;
@@ -80,7 +80,7 @@ section {
     position: fixed;
     top: 15%;
     height: 63%;
-    width: 45%;
+    width: 40%;
     left: 33%;
     padding: 1%;
     background-color: #F8F8FF;
@@ -300,9 +300,9 @@ ul.nav li:hover {
     background-color: #F8F8FF;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1366px) {
     div.userPhoto {
-        left: 15%;
+        left: 20%;
     }
 
     div.userPhoto p {
@@ -310,39 +310,94 @@ ul.nav li:hover {
     }
 
     nav {
-        top: 50%;
-        width: 16.5%;
-        left: 15%;
+        top: 45%;
+        width: 12%;
+        left: 20%;
     }
 
     #addMessage {
         bottom: 9%;
-        width: 12%;
+        width: 7%;
     }
 
 }
 
 @media screen and (max-width: 900px) {
+    div.timestamp a {
+        left: 77%;
+        margin: 1%;
+    }
+}
+
+@media screen and (max-width: 720px) {
     #addMessage {
         bottom: 12%;
+        left: 90%;
     }
 
     #inputMessage {
-        bottom: 11%;
+        bottom: 9%;
+        left: 35%;
+        width: 50%;
+        margin: 1%;
     }
 
     nav {
-        top: 50%;
+        top: 44%;
+        font-size: 80%;
     }
 
     img.icon {
         width: 15%;
     }
+
+    section {
+        top: 14%;
+        left: 35%;
+        width: 60%;
+        margin: 1%;
+    }
+
+    div.timestamp a {
+        left: 83%;
+        margin: 1%;
+    }
+
+    #name {
+        width: 30%;
+        left: 40%;
+    }
+
+    #password {
+        width: 30%;
+        left: 40%;
+    }
+
+    #addUser {
+        left: 40%;
+        width: 15%;
+    }
+
+    #newUser {
+        left: 56%;
+        width: 15%;
+    }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 480px) {
     div.userPhoto {
-        display: none;
+        left: 5%;
+        width: 30%;
+    }
+
+    nav {
+        left: 5%;
+        margin: 1%;
+        width: 30%;
+    }
+
+    img.icon {
+        width: 20%;
     }
 }
 
