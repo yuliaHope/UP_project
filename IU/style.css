@@ -58,10 +58,9 @@ div.userPhoto {
     height: auto;
 }
 
-.userPhoto p {
+#userName {
     position: absolute;
     text-align: left;
-    width: 100%;
     bottom: 0%;
     font: 400 100%/1 'Kaushan Script', cursive;
     color: #888;
@@ -143,7 +142,7 @@ div.messageText {
     font-weight: normal;
 }
 
-div.timestamp a {
+div.timestamp {
     position: relative;
     left: 90%;
     font-size: 0.7em;
@@ -285,24 +284,24 @@ ul.nav .right {
     direction: rtl;
 }
 
-ul.nav a {
+ul.nav li {
     display: block;
     padding: 0.3% 0;
     color: black;
     text-decoration: none;
 }
 
-ul.nav ul a {
+ul.nav ul li {
     padding: 0.3% 1%;
 }
 
-ul.nav li:hover {
+ul.nav li ul li:hover {
     background-color: #F8F8FF;
 }
 
 @media screen and (max-width: 1366px) {
     div.userPhoto {
-        left: 20%;
+        left: 15%;
     }
 
     div.userPhoto p {
@@ -312,7 +311,11 @@ ul.nav li:hover {
     nav {
         top: 45%;
         width: 12%;
-        left: 20%;
+        left: 15%;
+    }
+
+    span.navText{
+        font-size: 130%;
     }
 
     #addMessage {
@@ -322,14 +325,8 @@ ul.nav li:hover {
 
 }
 
-@media screen and (max-width: 900px) {
-    div.timestamp a {
-        left: 77%;
-        margin: 1%;
-    }
-}
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 1200px) {
     #addMessage {
         bottom: 12%;
         left: 90%;
@@ -344,7 +341,12 @@ ul.nav li:hover {
 
     nav {
         top: 44%;
-        font-size: 80%;
+        left: 5%;
+        width: 25%;
+    }
+
+    nav ul li a {
+        font-size: 120%;
     }
 
     img.icon {
@@ -358,7 +360,7 @@ ul.nav li:hover {
         margin: 1%;
     }
 
-    div.timestamp a {
+    div.timestamp {
         left: 83%;
         margin: 1%;
     }
@@ -382,22 +384,86 @@ ul.nav li:hover {
         left: 56%;
         width: 15%;
     }
+
+    #NewName{
+        top: 15%;
+        left: 15%;
+        width: 18%;
+    }
+
+    #Rename{
+        width: 6%;
+        height: 4%;
+        left: 28%;
+    }
+
+    div.userPhoto{
+        width: 150%;
+        left: 5%;
+    }
+
+    #userName {
+        font-size: 130%;
+    }
 }
 
 @media screen and (max-width: 480px) {
     div.userPhoto {
-        left: 5%;
-        width: 30%;
+        display: none;
     }
 
     nav {
-        left: 5%;
+        top: 15%;
+        left: 3%;
         margin: 1%;
-        width: 30%;
+        height: 15%;
+        width: 20%;
     }
 
     img.icon {
-        width: 20%;
+        width: 50%;
+    }
+    section {
+        left: 25%;
+        width: 70%;
+        margin: 1%;
+    }
+
+    #addMessage {
+        bottom: 10%;
+        left: 80%;
+        width: 15%;
+    }
+
+    #inputMessage {
+        bottom: 9%;
+        left: 25%;
+        width: 50%;
+        margin: 1%;
+    }
+
+    #NewName{
+        top: 15%;
+        left: 45%;
+        width: 30%;
+    }
+
+    #Rename{
+        width: 13%;
+        height: 4%;
+        left: 65%;
+    }
+
+    span.navText, .delText, .editText{
+        display: none;
+    }
+
+    img.editIcon{
+        width: 10%;
+    }
+
+    div.timestamp {
+        left: 77%;
     }
 }
 
