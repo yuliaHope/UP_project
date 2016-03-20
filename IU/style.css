@@ -2,8 +2,6 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-height: 1080px;
-    max-width: 1920px;
 }
 
 header {
@@ -19,38 +17,17 @@ header {
     padding: 0.26%;
 }
 
-nav {
-    line-height: 2.8%;
-    background-color: #eeeeee;
-    position: fixed;
-    top: 45%;
-    height: 15%;
-    width: 12.3%;
-    left: 19.5%;
-    padding: 0.26%;
-}
-
-nav ul li a {
-    font-size: 95%;
-    display: block;
-    text-align: left;
-}
-
-nav, nav ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
 div.userPhoto {
     position: fixed;
     top: 15%;
-    left: 19.5%;
+    left: 18%;
     padding: 0.26%;
+    width: 12%;
+    margin: 0.25%;
 }
 
-.userPhoto img#mainPhoto {
-    width: 15%;
+.userPhoto #mainPhoto {
+    width: 95%;
     border: 0.65em solid #fff;
     border-bottom: 3em solid #fff;
     box-shadow: 0.2em 0.2em 0.2em #777;
@@ -68,9 +45,9 @@ div.userPhoto {
 
 .userPhoto img.server {
     position: absolute;
-    left: 12%;
+    left: 75%;
     bottom: 4%;
-    width: 5%;
+    width: 25%;
     max-width: 100%;
     height: auto;
 }
@@ -102,6 +79,10 @@ li.Message {
     border-radius: 5%;
 }
 
+li.Message img.editIcon{
+    display: none;
+}
+
 li.deleteMessage {
     border-radius: 5%;
     background-color: #FFDAB9;
@@ -109,6 +90,14 @@ li.deleteMessage {
     width: 100%;
     min-height: 1%;
     margin: 0.2%;
+}
+
+li.deleteMessage ul.nav{
+    display: none;
+}
+
+li.deleteMessage img.editIcon{
+    display: none;
 }
 
 li.editMessage {
@@ -121,7 +110,7 @@ li.editMessage {
     margin: 0.2%;
 }
 
-img.editIcon {
+li.editMessage img.editIcon {
     width: 5%;
     position: absolute;
     right: 0.1%;
@@ -174,34 +163,40 @@ footer {
     width: 33%;
 }
 
+#changeName {
+    position: fixed;
+    border-radius: 5%;
+    top: 45%;
+    left: 18.5%;
+    width: 12.5%;
+    height: 20%;
+    background-color: #F8F8FF;
+}
+
 #NewName {
-    position: fixed;
-    top: 100px;
-    width: 165px;
-    border-radius: 5%;
-    left: 267px;
-    padding: 5px;
+    width: 85%;
 }
 
-#name {
-    position: fixed;
-    top: 16%;
-    width: 12%;
-    border-radius: 5%;
-    left: 44%;
-    padding: 0.26%;
+#changeMenu {
+    position: absolute;
+    left: 3%;
 }
 
-#password {
-    position: fixed;
-    top: 23.5%;
-    width: 12%;
-    border-radius: 5%;
-    left: 44%;
-    padding: 0.26%;
+#changeMenu li ul li {
+    padding: 3%;
 }
 
-#addMessage, #Rename, #addUser, #newUser {
+article ul#changeMenu li div {
+    position: relative;
+    top: 2%;
+    width: 10%;
+    border-radius: 5%;
+    left: 5%;
+    font: 400 100%/1 'Kaushan Script', cursive;
+    color: #888;
+}
+
+#addMessage, #Rename {
     border-radius: 10%;
     background-color: rgb(93, 6, 24);
     color: white;
@@ -215,31 +210,6 @@ footer {
     left: 68%;
     height: 5%;
     width: 7%;
-}
-
-#Rename {
-    position: fixed;
-    padding: 0.26%;
-    left: 29%;
-    top: 22%;
-}
-
-#addUser {
-    position: fixed;
-    padding: 0.26%;
-    left: 44%;
-    top: 31%;
-    height: 5%;
-    width: 6%;
-}
-
-#newUser {
-    position: fixed;
-    padding: 0.26%;
-    left: 51%;
-    top: 31%;
-    height: 5%;
-    width: 6%;
 }
 
 ul.nav, ul.nav ul, ul.nav li {
@@ -299,54 +269,19 @@ ul.nav li ul li:hover {
     background-color: #F8F8FF;
 }
 
-@media screen and (max-width: 1366px) {
-    div.userPhoto {
-        left: 15%;
-    }
-
-    div.userPhoto p {
-        font-size: 60%;
-    }
-
-    nav {
-        top: 45%;
-        width: 12%;
-        left: 15%;
-    }
-
-    span.navText{
-        font-size: 130%;
-    }
-
-    #addMessage {
-        bottom: 9%;
-        width: 7%;
-    }
-
-}
-
-
 @media screen and (max-width: 1200px) {
     #addMessage {
-        bottom: 12%;
+        bottom: 10%;
         left: 90%;
+        width: 8%;
     }
 
     #inputMessage {
-        bottom: 9%;
+        bottom: 7%;
         left: 35%;
         width: 50%;
         margin: 1%;
-    }
-
-    nav {
-        top: 44%;
-        left: 5%;
-        width: 25%;
-    }
-
-    nav ul li a {
-        font-size: 120%;
+        border-radius: 5%;
     }
 
     img.icon {
@@ -370,36 +305,25 @@ ul.nav li ul li:hover {
         left: 40%;
     }
 
-    #password {
-        width: 30%;
-        left: 40%;
-    }
-
-    #addUser {
-        left: 40%;
+    #changeName {
+        position: fixed;
+        top: 50%;
         width: 15%;
+        left: 16%;
     }
 
-    #newUser {
-        left: 56%;
+    #Rename {
+        left: 4%;
+        bottom: 6%;
+    }
+
+    article ul#changeMenu li div {
+        font-size: 120%;
+    }
+
+    div.userPhoto {
         width: 15%;
-    }
-
-    #NewName{
-        top: 15%;
         left: 15%;
-        width: 18%;
-    }
-
-    #Rename{
-        width: 6%;
-        height: 4%;
-        left: 28%;
-    }
-
-    div.userPhoto{
-        width: 150%;
-        left: 5%;
     }
 
     #userName {
@@ -407,65 +331,157 @@ ul.nav li ul li:hover {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 976px) {
+    ul.messageHistory {
+        left: 18%;
+    }
+
+    #changeName {
+        top: 43%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
     div.userPhoto {
         display: none;
     }
 
-    nav {
-        top: 15%;
-        left: 3%;
-        margin: 1%;
-        height: 15%;
-        width: 20%;
+    #changeName {
+        top: 9%;
+        left: 1%;
+        width: 30%;
+        height: 5%;
     }
 
-    img.icon {
-        width: 50%;
-    }
     section {
-        left: 25%;
-        width: 70%;
-        margin: 1%;
+        left: 1%;
+        width: 95%;
+        height: 68%;
     }
 
     #addMessage {
-        bottom: 10%;
-        left: 80%;
-        width: 15%;
+        bottom: 8%;
+        width: 10%;
+        left: 89%;
     }
 
     #inputMessage {
-        bottom: 9%;
-        left: 25%;
-        width: 50%;
+        bottom: 6%;
+        left: 1%;
+        width: 80%;
         margin: 1%;
+        border-radius: 5%;
     }
 
-    #NewName{
-        top: 15%;
-        left: 45%;
+    ul#changeMenu, ul#changeMenu ul, ul#changeMenu li {
+        margin: 0;
+        padding: 1%;
+        width: 130%;
+    }
+
+    ul#changeMenu ul {
+        width: 130%;
+        height: 20%;
+    }
+
+    ul#changeMenu {
+        position: relative;
+        float: left;
+        display: table;
         width: 30%;
+
     }
 
-    #Rename{
-        width: 13%;
-        height: 4%;
-        left: 65%;
-    }
-
-    span.navText, .delText, .editText{
+    ul#changeMenu ul {
+        border-radius: 5%;
+        position: absolute;
+        width: 218%;
+        z-index: 5;
         display: none;
     }
 
-    img.editIcon{
-        width: 10%;
+    ul#changeMenu li:hover ul {
+        display: block;
+        top: 100%;
     }
 
-    div.timestamp {
-        left: 77%;
+    ul#changeMenu li {
+        display: inline;
+        align-content: left;
+    }
+
+    ul#changeMenu ul li {
+        display: block;
+        align-content: left;
+    }
+
+    ul#changeMenu .right {
+        direction: rtl;
+    }
+
+    ul#changeMenu li {
+        display: block;
+        padding: 0.3% 0;
+        color: black;
+        text-decoration: none;
+    }
+
+    ul#changeMenu ul li {
+        padding: 0.3% 1%;
+    }
+
+    ul#changeMenu li ul li {
+        background-color: #F8F8FF;
     }
 }
+
+@media screen and (max-width: 480px) {
+    #addMessage {
+        left: 85%;
+        width: 14%;
+        bottom: 7%;
+    }
+
+    img.icon {
+        width: 20%;
+    }
+
+    span.delText, .editText{
+        display: none;
+    }
+
+    img.icon {
+        width: 30%;
+    }
+}
+
+@media screen and (max-height: 435px) {
+    header {
+        height: 10%;
+        font-size: 50%;
+    }
+
+    footer {
+        height: 5%;
+        font-size: 50%;
+    }
+
+    #changeName {
+        top: 5%;
+    }
+
+    ul#changeMenu li div {
+        font-size: 40%;
+        top: 1%;
+    }
+
+    #addMessage {
+        bottom: 8%;
+        height: 6%;
+    }
+}
+
+
 
 
 

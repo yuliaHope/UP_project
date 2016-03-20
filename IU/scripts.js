@@ -1,78 +1,119 @@
-var iconMoreInfo = 'https://lh3.googleusercontent.com/-bsIfzHbokTPWlSUtSqq-s2nCyjBIpufVNndHAX0RJcJlTbN8UlbQd5M3JbycNEZVYKy=w1107-h623-rw-no';
-var iconEdit = 'https://lh3.googleusercontent.com/l6tkRklJ12kAfG21Aecae5QOuFn36bgQZzHArURg1m6QRrcJdu-2n3JSiI_CSTOt40f1=w1107-h623-rw-no';
-var iconDelete = 'https://lh3.googleusercontent.com/2Pe-HtXrCB-yzQXGJ0cmzAgbuf_ipJGy7Q2TpAaBK9zC8bdSt8ZkVMyCCs0LxjLcg-21=w1107-h623-rw-no';
-var iconEditMsg = 'https://lh3.googleusercontent.com/l6tkRklJ12kAfG21Aecae5QOuFn36bgQZzHArURg1m6QRrcJdu-2n3JSiI_CSTOt40f1=w1107-h623-rw-no';
 var flag = false;
-var editTarget;
-var userName;
+var editElement;
+var userName = 'Anonymous';
 
+var uniqueId = function() {
+    var date = Date.now();
+    var random = Math.random() * Math.random();
+
+    return Math.floor(date * random).toString();
+};
+
+var newMessage = function(name, text, removed, changed, who) {
+    return {
+        author: name,
+        messageText: text,
+        timestamp: '5:15 PM',
+        removed: !!removed,
+        changed: !!changed,
+        myMessage: !!who,
+        id: uniqueId()
+    };
+};
+
+var messageHistory = [];
 
 function run() {
-    replaceName();
+    document.getElementById('Rename').addEventListener('click', delegateEvent);
     document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
     document.getElementById('addMessage').addEventListener('click', delegateEvent);
-}
+    document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
+    document.getElementById('NewName').addEventListener('keydown', delegateEvent);
 
-function renameClick(){
-    document.getElementById('Rename').addEventListener('click', reName);
+    var messageList = loadMessages();
+
+    if(messageList != 0) {
+        userName = messageList[messageList.length - 1].author;
+        document.getElementById("userName").innerText = userName;
+        render(messageList);
+    }
+
 }
 
 function reName(){
-    var username = document.getElementById('NewName');
-    document.location.href = 'ConversationM.html?' + username.value;
-}
-
-function replaceName(){
-    var pItem = document.getElementById('userName');
-    var name = document.location.href.split ('?') [1];
-    pItem.innerHTML = name;
+    var name = document.getElementById('NewName');
+    userName = name.value;
+    var user = document.getElementById("userName");
+    user.innerText = userName;
+    name.value = '';
 }
 
 function delegateEvent(event) {
-    var target = event.target;
-    if (event.target.classList.contains('editMsg') || event.target.classList.contains('editText')) {
-        editMsg(target);
+    if (event.target.classList.contains('editMsg')
+        || event.target.classList.contains('editText')) {
+        editMsg(event.target);
         return;
     }
-    if (event.target.classList.contains('deleteMsg') || event.target.classList.contains('delText')) {
-        delMsg(target);
+    if (event.target.classList.contains('deleteMsg')
+        || event.target.classList.contains('delText')) {
+        delMsg(event.target);
         return;
     }
-    if(event.target.classList.contains('addMessage') && flag == true){
+    if(event.target.classList.contains('addMessage')
+        && flag == true){
         onEditButtonClick();
         return;
     }
-    if(event.target.classList.contains('addMessage')){
+    if(event.target.classList.contains('Rename')
+        || (event.target.classList.contains('NewName')
+        && event.type === 'keydown' && event.keyCode == 13)){
+        reName();
+        return;
+    }
+    if(event.target.classList.contains('addMessage')
+        || event.type === 'keydown' && event.keyCode == 13){
         onAddButtonClick();
         return;
     }
 }
 
-function delMsg(target) {
-    var item = createItemBody('This message has been removed.');
-    item.classList.add('deleteMessage');
-    while (target != this) {
-        if (target.classList.contains('Message') || target.classList.contains('editMessage')) {
+function delMsg(element) {
+    while (element != this) {
+        if (element.classList.contains('Message')
+            || element.classList.contains('editMessage')) {
             break;
         }
-        target = target.parentNode;
+        element = element.parentNode;
     }
-    var items = document.getElementsByClassName('messageHistory')[0];
 
-    items.replaceChild(item, target);
+    var index = indexByElement(element, messageHistory);
+    var message = messageHistory[index];
+    message.removed = !message.removed;
+    message.messageText = 'This message has been removed.';
+
+    renderMessageState(element, message);
+    messageHistory.splice(index, 1);
+    saveMessages(messageHistory);
 }
 
-function editMsg(target) {
-    while (target != this) {
-        if (target.classList.contains('Message')) {
+function indexByElement(element){
+    var id = element.attributes['message-id'].value;
+    for(var i = 0; i < messageHistory.length; i++)
+        if(messageHistory[i].id === id)
+            return i;
+}
+
+function editMsg(element) {
+    while (element != this) {
+        if (element.classList.contains('Message') || element.classList.contains('editMessage')) {
             break;
         }
-        target = target.parentNode;
+        element = element.parentNode;
     }
     var messageText = document.getElementById('inputMessage');
-    var valueMessageText = target.getElementsByClassName('messageText')[0].innerHTML;
+    var valueMessageText = element.getElementsByClassName('messageText')[0].innerHTML;
     messageText.value = valueMessageText;
-    editTarget = target;
+    editElement = element;
 
     flag = true;
 }
@@ -91,145 +132,81 @@ function addEditMessage(text){
         return;
     }
 
-    var imgEdit = document.createElement('img');
-    var divItem = document.createElement('div');
-    var item = createItem(text);
+    var index = indexByElement(editElement);
+    var message = messageHistory[index];
+    message.changed = !message.changed;
+    message.messageText = text;
 
-    imgEdit.classList.add('editIcon');
-    imgEdit.setAttribute('alt', 'edit message');
-    imgEdit.setAttribute('src', iconEditMsg);
-
-    divItem.appendChild(imgEdit);
-    item.appendChild(divItem);
-
-    item.classList.add('editMessage');
-
-    var items = document.getElementsByClassName('messageHistory')[0];
-
-    items.replaceChild(item, editTarget);
+    renderMessageState(editElement, message);
+    saveMessages(messageHistory);
 }
 
-function logIn() {
-    document.getElementById('newUser').addEventListener('click', newUser);
-    document.getElementById('addUser').addEventListener('click', logInChat);
-}
-
-function newUser() {
-    var name = document.getElementById('name');
-    document.location.href = 'Conversation.html?' + name.value;
-}
-
-function logInChat() {
-    var name = document.getElementById('name');
-    document.location.href = 'ConversationM.html?' + name.value;
-}
-
-function setName(){
-    var pItem = document.getElementById('userName');
-    var name = document.location.href.split ('?') [1];
-    pItem.innerHTML = name;
-}
-
-function onAddButtonClick() {
+function onAddButtonClick(){
     var messageText = document.getElementById('inputMessage');
+    var message = newMessage(userName, messageText.value, false, false, false);
 
-    addMessage(messageText.value);
+    if(messageText.value == '')
+        return;
+
     messageText.value = '';
+    render([message]);
+    saveMessages(messageHistory);
 }
 
-function addMessage(value) {
-    if (!value) {
+function render(messages) {
+    for(var i = 0; i < messages.length; i++) {
+        renderMessage(messages[i]);
+    }
+    saveMessages(messageHistory);
+}
+
+function renderMessage(message){
+    var items = document.getElementsByClassName('messageHistory')[0];
+    var element = elementFromTemplate();
+    renderMessageState(element, message);
+    messageHistory.push(message);
+    items.appendChild(element);
+}
+
+function renderMessageState(element, message){
+    if(message.removed) {
+        if(element.classList.contains('Message')){
+            element.classList.remove('Message')
+        } else if(element.classList.contains('editMessage')){
+            element.classList.remove('editMessage')
+        }
+        element.classList.add('deleteMessage');
+    } else if(message.changed){
+        if(element.classList.contains('Message')){
+            element.classList.remove('Message')
+        }
+        element.classList.add('editMessage');
+    }
+    element.setAttribute('message-id', message.id);
+    element.getElementsByClassName('author')[0].innerText = message.author;
+    element.getElementsByClassName('messageText')[0].innerText = message.messageText;
+    element.getElementsByClassName('timestamp')[0].innerText = message.timestamp;
+}
+
+function elementFromTemplate() {
+    var template = document.getElementById("message-template");
+    return template.firstElementChild.cloneNode(true);
+}
+
+function saveMessages(listToSave) {
+    if(typeof(Storage) == "undefined") {
+        alert('localStorage is not accessible');
         return;
     }
-
-    var item = createItem(value);
-    var items = document.getElementsByClassName('messageHistory')[0];
-
-    items.appendChild(item);
+    localStorage.setItem("Messages List", JSON.stringify(listToSave));
 }
 
-function createItem(text) {
-    var divItem = createItemBody(text);
-    var menu = createItemNav();
+function loadMessages() {
+    if(typeof(Storage) == "undefined") {
+        alert('localStorage is not accessible');
+        return;
+    }
+    var item = localStorage.getItem("Messages List");
 
-    divItem.appendChild(menu);
-
-    return divItem;
-}
-
-function createItemBody(text) {
-    var divItem = document.createElement('li');
-    var divAuthor = document.createElement('div');
-    var strongAuthor = document.createElement('strong');
-    var divMsgText = document.createElement('div');
-    var divTimestamp = document.createElement('div');
-
-
-    divItem.classList.add('Message');
-    divAuthor.classList.add('author');
-    divMsgText.classList.add('messageText');
-    divTimestamp.classList.add('timestamp');
-    strongAuthor.innerHTML = document.getElementById('userName').innerHTML;
-    divTimestamp.appendChild(document.createTextNode('7:30 p.m.'));
-
-    divAuthor.appendChild(strongAuthor);
-    divItem.appendChild(divAuthor);
-    divMsgText.appendChild(document.createTextNode(text));
-    divItem.appendChild(divMsgText);
-    divItem.appendChild(divTimestamp);
-
-    return divItem;
-}
-
-function createItemNav() {
-    var item = document.createElement('ul');
-    var moreInfo = document.createElement('li');
-    var menu = document.createElement('ul');
-    var edit = document.createElement('li');
-    var deleteMsg = document.createElement('li');
-    var imgMoreInfo = document.createElement('img');
-    var imgEdit = document.createElement('img');
-    var imgDelete = document.createElement('img');
-    var spanItemEdit = document.createElement('span');
-    var spanItemDel = document.createElement('span');
-
-    item.classList.add('nav');
-    edit.classList.add('editMsg');
-    deleteMsg.classList.add('deleteMsg');
-    imgDelete.classList.add('icon');
-    imgEdit.classList.add('icon');
-    imgMoreInfo.classList.add('icon');
-    spanItemEdit.classList.add('editText');
-    spanItemDel.classList.add('delText');
-
-    setAtributsNav(imgMoreInfo, imgEdit, imgDelete);
-
-    deleteMsg.appendChild(imgDelete);
-    edit.appendChild(imgEdit);
-    spanItemEdit.appendChild(document.createTextNode('edit message'));
-    edit.appendChild(spanItemEdit);
-    spanItemDel.appendChild(document.createTextNode('delete message'));
-    deleteMsg.appendChild(spanItemDel);
-    menu.appendChild(edit);
-    menu.appendChild(deleteMsg);
-    moreInfo.appendChild(imgMoreInfo);
-    moreInfo.appendChild(menu);
-    item.appendChild(moreInfo);
-
-    return item;
-}
-
-function setAtributsNav(imgMoreInfo, imgEdit, imgDelete){
-    imgMoreInfo.setAttribute('src', iconMoreInfo);
-    imgMoreInfo.setAttribute('alt', 'More actions');
-    imgMoreInfo.setAttribute('title', 'More');
-
-    imgEdit.setAttribute('src', iconEdit);
-    imgEdit.setAttribute('alt', 'edit message');
-    imgEdit.setAttribute('title', 'Edit');
-
-    imgDelete.setAttribute('src', iconDelete);
-    imgDelete.setAttribute('alt', 'delete message');
-    imgDelete.setAttribute('title', 'Delete');
-
+    return item && JSON.parse(item);
 }
