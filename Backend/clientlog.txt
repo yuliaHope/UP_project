@@ -1,0 +1,74 @@
+[22.03.2016 08:32] request parameters: url: http://localhost:8080/chat
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: POST
+[22.03.2016 08:32] request message: 1111
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN19EN
+[22.03.2016 08:32] Messages from client: 1111
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: POST
+[22.03.2016 08:32] request message: 2222
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN19EN
+[22.03.2016 08:32] Messages from client: 2222
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: POST
+[22.03.2016 08:32] request message: 3333
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN19EN
+[22.03.2016 08:32] Messages from client: 3333
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: POST
+[22.03.2016 08:32] request message: 4444
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN19EN
+[22.03.2016 08:32] Messages from client: 4444
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: POST
+[22.03.2016 08:32] request message: 5555
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN19EN
+[22.03.2016 08:32] Messages from client: 5555
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32] request method: GET
+[22.03.2016 08:32] request parameters: token=TN11EN
+[22.03.2016 08:32] request end

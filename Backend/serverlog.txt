@@ -1,0 +1,97 @@
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=0
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=0
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=0
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=0
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=0
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: POST
+[22.03.2016 08:32]  request new message from user: 1111
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN11EN
+[22.03.2016 08:32]  response: history size=1
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: POST
+[22.03.2016 08:32]  request new message from user: 2222
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN19EN
+[22.03.2016 08:32]  response: history size=2
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN27EN
+[22.03.2016 08:32]  response: history size=2
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: POST
+[22.03.2016 08:32]  request new message from user: 3333
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN27EN
+[22.03.2016 08:32]  response: history size=3
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: POST
+[22.03.2016 08:32]  request new message from user: 4444
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN35EN
+[22.03.2016 08:32]  response: history size=4
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: POST
+[22.03.2016 08:32]  request new message from user: 5555
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN43EN
+[22.03.2016 08:32]  response: history size=5
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
+[22.03.2016 08:32] request begin
+[22.03.2016 08:32]  request method: GET
+[22.03.2016 08:32]  request parameters: token: TN51EN
+[22.03.2016 08:32]  response: history size=5
+[22.03.2016 08:32]  response sent
+[22.03.2016 08:32] request end
