@@ -1,4 +1,4 @@
-var flag = false;
+var isEdit = false;
 var editElement;
 var userName = 'Anonymous';
 
@@ -59,8 +59,10 @@ function delegateEvent(event) {
         delMsg(event.target);
         return;
     }
-    if(event.target.classList.contains('addMessage')
-        && flag == true){
+    if((event.target.classList.contains('addMessage')
+        || (event.target.classList.contains('inputMessage')
+        && event.type === 'keydown' && event.keyCode == 13))
+        && isEdit == true){
         onEditButtonClick();
         return;
     }
@@ -105,7 +107,8 @@ function indexByElement(element){
 
 function editMsg(element) {
     while (element != this) {
-        if (element.classList.contains('Message') || element.classList.contains('editMessage')) {
+        if (element.classList.contains('Message')
+            || element.classList.contains('editMessage')) {
             break;
         }
         element = element.parentNode;
@@ -115,7 +118,7 @@ function editMsg(element) {
     messageText.value = valueMessageText;
     editElement = element;
 
-    flag = true;
+    isEdit = true;
 }
 
 function onEditButtonClick() {
@@ -124,7 +127,7 @@ function onEditButtonClick() {
     addEditMessage(messageText.value);
 
     messageText.value = '';
-    flag = false;
+    isEdit = false;
 }
 
 function addEditMessage(text){

@@ -129,6 +129,7 @@ div.messageText {
     font-size: 0.9em;
     line-height: 1.182;
     font-weight: normal;
+    word-wrap: break-word;
 }
 
 div.timestamp {
