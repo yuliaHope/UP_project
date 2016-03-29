@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Date: Tue, 29 Mar 2016 04:59:56 GMT
+Access-control-allow-origin: *
+Content-length: 68
+
+{"messages":["Mam","Dad","Sister","Brother","I'm"],"token":"TN51EN"}
