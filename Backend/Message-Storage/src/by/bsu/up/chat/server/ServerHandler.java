@@ -5,7 +5,7 @@ import by.bsu.up.chat.InvalidTokenException;
 import by.bsu.up.chat.common.models.Message;
 import by.bsu.up.chat.logging.Logger;
 import by.bsu.up.chat.logging.impl.FileLog;
-import by.bsu.up.chat.storage.InMemoryMessageStorage;
+import by.bsu.up.chat.storage.InFileMessageStorage;
 import by.bsu.up.chat.storage.MessageStorage;
 import by.bsu.up.chat.storage.Portion;
 import by.bsu.up.chat.utils.MessageHelper;
@@ -25,7 +25,7 @@ public class ServerHandler implements HttpHandler {
 
     private static final Logger logger = FileLog.create("ServerHandlerLog.txt");
 
-    private MessageStorage messageStorage = new InMemoryMessageStorage();
+    private MessageStorage messageStorage = new InFileMessageStorage();
 
     public ServerHandler() {
         messageStorage.loadMessages();

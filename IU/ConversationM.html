@@ -21,44 +21,17 @@
          src="https://lh3.googleusercontent.com/jwmuVY18_7ppDtpHQLgXviX-INz8wbt43u0fegm0xMiUUbEa9HO3GIcySoh_TIVDKNWo=w1107-h623-rw-no"
          alt="My photo">
     <p id="userName">Anonymous</p>
-    <img class="server"
+    <img class="hiddenServer"
+         id="server"
          src="https://lh3.googleusercontent.com/Kzwisx_UF0txkA7JSIAHsdNmKfCWh-5fI5dAcdQuiFIuBUxbdBTUxsnRFdjVCsZ4vLl3=w1107-h623-rw-no"
          alt="Server is not available"
-         title="Server is not available">
+         title="Server is not available"
+    >
 </div>
 
 <section>
     <ul class="messageHistory">
-        <div style="display:none" id="message-template">
-            <li class="Message" message-id="идентификатор">
-                <img class="editIcon"
-                     src="https://lh3.googleusercontent.com/9aqO-g2zgzAoIgOC66xhayI7LE7soxFSx9hmjB9B6IhRMszI7swIeoJWuo1BFFy4z-K1=w1107-h623-rw-no"
-                     alt="Message was been changed"
-                     title="Message was been changed">
-                <div class="author"><strong>Sarah</strong></div>
-                <div class="messageText">Message text</div>
-                <div class="timestamp">time</div>
-                <ul class="nav">
-                    <li><img class="icon"
-                             src="https://lh3.googleusercontent.com/-bsIfzHbokTPWlSUtSqq-s2nCyjBIpufVNndHAX0RJcJlTbN8UlbQd5M3JbycNEZVYKy=w1107-h623-rw-no"
-                             alt="More actions"
-                             title="More">
-                        <ul>
-                            <li class="editMsg"><img class="icon"
-                                                     src="https://lh3.googleusercontent.com/l6tkRklJ12kAfG21Aecae5QOuFn36bgQZzHArURg1m6QRrcJdu-2n3JSiI_CSTOt40f1=w1107-h623-rw-no"
-                                                     alt="edit message"
-                                                     title="Edit"><span class='editText'>Edit message</span>
-                            </li>
-                            <li class="deleteMsg"><img class="icon"
-                                                       src="https://lh3.googleusercontent.com/2Pe-HtXrCB-yzQXGJ0cmzAgbuf_ipJGy7Q2TpAaBK9zC8bdSt8ZkVMyCCs0LxjLcg-21=w1107-h623-rw-no"
-                                                       alt="delete message"
-                                                       title="Delete"><span class='delText'>Delete message</span>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </div>
+
     </ul>
 </section>
 
@@ -105,6 +78,37 @@
         </div>
     </div>
 </footer>
+
+<div style="display:none" id="message-template">
+    <li class="Message" message-id="идентификатор">
+        <img class="editIcon"
+             src="https://lh3.googleusercontent.com/9aqO-g2zgzAoIgOC66xhayI7LE7soxFSx9hmjB9B6IhRMszI7swIeoJWuo1BFFy4z-K1=w1107-h623-rw-no"
+             alt="Message was been changed"
+             title="Message was been changed">
+        <div class="author"><strong>Sarah</strong></div>
+        <div class="messageText">Message text</div>
+        <div class="timestamp">time</div>
+        <ul class="nav">
+            <li><img class="icon"
+                     src="https://lh3.googleusercontent.com/-bsIfzHbokTPWlSUtSqq-s2nCyjBIpufVNndHAX0RJcJlTbN8UlbQd5M3JbycNEZVYKy=w1107-h623-rw-no"
+                     alt="More actions"
+                     title="More">
+                <ul>
+                    <li class="editMsg"><img class="icon"
+                                             src="https://lh3.googleusercontent.com/l6tkRklJ12kAfG21Aecae5QOuFn36bgQZzHArURg1m6QRrcJdu-2n3JSiI_CSTOt40f1=w1107-h623-rw-no"
+                                             alt="edit message"
+                                             title="Edit"><span class='editText'>Edit message</span>
+                    </li>
+                    <li class="deleteMsg"><img class="icon"
+                                               src="https://lh3.googleusercontent.com/2Pe-HtXrCB-yzQXGJ0cmzAgbuf_ipJGy7Q2TpAaBK9zC8bdSt8ZkVMyCCs0LxjLcg-21=w1107-h623-rw-no"
+                                               alt="delete message"
+                                               title="Delete"><span class='delText'>Delete message</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</div>
 
 </body>
 </html>

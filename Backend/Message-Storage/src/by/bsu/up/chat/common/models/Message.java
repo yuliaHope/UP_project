@@ -8,6 +8,33 @@ public class Message implements Serializable {
     private String author;
     private long timestamp;
     private String text;
+    private boolean removed;
+    private boolean changed;
+    private boolean myMessage;
+
+    public boolean getRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    public boolean getChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+
+    public boolean getMyMessage() {
+        return myMessage;
+    }
+
+    public void setMyMessage(boolean myMessage) {
+        this.myMessage = myMessage;
+    }
 
     public String getId() {
         return id;
@@ -48,6 +75,9 @@ public class Message implements Serializable {
                 ", author='" + author + '\'' +
                 ", timestamp=" + timestamp +
                 ", text='" + text + '\'' +
+                ", removed=" + removed +
+                ", changed=" + changed +
+                ", who=" + myMessage +
                 '}';
     }
 

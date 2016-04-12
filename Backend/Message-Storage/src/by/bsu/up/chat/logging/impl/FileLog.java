@@ -36,7 +36,7 @@ public class FileLog implements Logger {
 
     @Override
     public void error(String message, Throwable e) {
-        pw.write(String.format(countedTag(), message) + e.getStackTrace() + "\r\n");
+        pw.write(String.format(countedTag(), message) + e.getMessage() + "\r\n");
         pw.flush();
     }
 

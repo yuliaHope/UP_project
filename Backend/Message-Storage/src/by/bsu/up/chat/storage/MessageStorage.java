@@ -25,14 +25,14 @@ public interface MessageStorage {
      * @param message the message to be saved
      * @return true if message was updated successfully and false otherwise
      */
-    boolean updateMessage(Message message);
+    void updateMessage(Message message);
 
     /**
      * Removes the message with the given id
      * @param messageId the id of message which should be deleted
      * @return true if message was deleted successfully and false otherwise
      */
-    boolean removeMessage(String messageId);
+    void removeMessage(String messageId);
 
 
     /**

@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryMessageStorage implements MessageStorage {
+public class InFileMessageStorage implements MessageStorage {
 
     private static final String DEFAULT_MEMORY_FILE = "messages.json";
 
-    private static final Logger logger = Log.create(InMemoryMessageStorage.class);
+    private static final Logger logger = Log.create(InFileMessageStorage.class);
 
     private List<Message> messages = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     @Override
-    public void addMessage(Message message){
+    public void addMessage(Message message) {
         messages.add(message);
         try {
             Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
@@ -64,36 +64,35 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     @Override
-    public boolean updateMessage(Message message) {
-        for(Message item: messages){
-            if(item.getId().equals(message.getId())){
+    public void updateMessage(Message message) {
+        for (Message item : messages) {
+            if (item.getId().equals(message.getId())) {
                 item.setText(message.getText());
                 item.setTimestamp(message.getTimestamp());
-                try {
-                    Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
-                } catch (IOException e){
-                    logger.error("Could not open file", e);
-                }
-                return true;
+                item.setChanged(true);
             }
         }
-        return false;
+        try {
+            Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
+        } catch (IOException e) {
+            logger.error("Could not open file", e);
+        }
     }
 
     @Override
-    public synchronized boolean removeMessage(String messageId){
+    public synchronized void removeMessage(String messageId) {
         for (Message item : messages) {
             if (item.getId().equals(messageId)) {
-                messages.remove(item);
-                try {
-                    Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
-                } catch (IOException e){
-                    logger.error("Could not open file", e);
-                }
-                return true;
+                item.setText("This message has been removed.");
+                item.setRemoved(true);
+                break;
             }
         }
-        return false;
+        try {
+            Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
+        } catch (IOException e) {
+            logger.error("Could not open file", e);
+        }
     }
 
     @Override

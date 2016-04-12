@@ -31,16 +31,17 @@ public class MessageHelper {
      * Builds token based on amount of messages, which are
      * already stored on server side or client side.
      * <p>
-     *     E.g. Client has 5 messages. It does not want to
-     *     retrieve messages it already has. So, client
-     *     passes 5 as argument to this method, and this method
-     *     will return a token, which says to server: Just give
-     *     me all messages, but skip first 5.
-     *
+     * E.g. Client has 5 messages. It does not want to
+     * retrieve messages it already has. So, client
+     * passes 5 as argument to this method, and this method
+     * will return a token, which says to server: Just give
+     * me all messages, but skip first 5.
      * <p>
-     *     On the other hand, server passes amount of messages it has
-     *     (size of messages collection). So, client can parse
-     *     token and understand how many messages are on server side
+     * <p>
+     * On the other hand, server passes amount of messages it has
+     * (size of messages collection). So, client can parse
+     * token and understand how many messages are on server side
+     *
      * @param receivedMessagesCount amount of messages to skip.
      * @return generated token
      */
@@ -51,6 +52,7 @@ public class MessageHelper {
 
     /**
      * Parses token and extract encoded amount of messages (typically - index)
+     *
      * @param token the token to be parsed
      * @return decoded amount messages (index)
      */
@@ -104,37 +106,36 @@ public class MessageHelper {
         return array;
     }
 
-    @SuppressWarnings("unchecked")
-    public static String buildSendMessageRequestBody(String message) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(MESSAGE_PART_SINGLE_MSG, message);
-        return jsonObject.toJSONString();
-    }
+//    @SuppressWarnings("unchecked")
+//    public static String buildSendMessageRequestBody(String message) {
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put(MESSAGE_PART_SINGLE_MSG, message);
+//        return jsonObject.toJSONString();
+//    }
 
     public static Message getClientMessage(InputStream inputStream) throws ParseException {
         JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
-        String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
-        String author = ((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
-        long timestamp = ((long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
-        String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
-        Message message = new Message();
-        message.setId(id);
-        message.setAuthor(author);
-        message.setTimestamp(timestamp);
-        message.setText(text);
-        return message;
+        return JSONObjectToMessage(jsonObject);
     }
+
+
 
     public static Message JSONObjectToMessage(JSONObject jsonObject) throws ParseException {
         String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
         String author = ((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
         long timestamp = ((long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
         String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
+        boolean removed = ((Boolean) jsonObject.get(Constants.Message.FIELD_REMOVED));
+        boolean changed = ((Boolean) jsonObject.get(Constants.Message.FIELD_CHANGED));
+       // boolean myMessage = ((Boolean) jsonObject.get(Constants.Message.FIELD_MY_MESSAGE));
         Message message = new Message();
         message.setId(id);
         message.setAuthor(author);
         message.setTimestamp(timestamp);
         message.setText(text);
+        message.setRemoved(removed);
+        message.setChanged(changed);
+       // message.setMyMessage(myMessage);
         return message;
     }
 
@@ -160,12 +161,8 @@ public class MessageHelper {
 
     public static JSONArray messageToJSONArray(List<Message> messages) {
         JSONArray jsonArray = new JSONArray();
-        for(Message item: messages) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(Constants.Message.FIELD_ID, item.getId());
-            jsonObject.put(Constants.Message.FIELD_AUTHOR, item.getAuthor());
-            jsonObject.put(Constants.Message.FIELD_TIMESTAMP, item.getTimestamp());
-            jsonObject.put(Constants.Message.FIELD_TEXT, item.getText());
+        for (Message item : messages) {
+            JSONObject jsonObject = messageToJSONObject(item);
             jsonArray.add(jsonObject);
         }
         return jsonArray;
@@ -177,6 +174,9 @@ public class MessageHelper {
         jsonObject.put(Constants.Message.FIELD_AUTHOR, message.getAuthor());
         jsonObject.put(Constants.Message.FIELD_TIMESTAMP, message.getTimestamp());
         jsonObject.put(Constants.Message.FIELD_TEXT, message.getText());
+        jsonObject.put(Constants.Message.FIELD_REMOVED, message.getRemoved());
+        jsonObject.put(Constants.Message.FIELD_CHANGED, message.getChanged());
+        //jsonObject.put(Constants.Message.FIELD_MY_MESSAGE, message.getMyMessage());
         return jsonObject;
     }
 }

@@ -43,13 +43,24 @@ div.userPhoto {
     color: #888;
 }
 
-.userPhoto img.server {
+.userPhoto img.hiddenServer {
     position: absolute;
     left: 75%;
     bottom: 4%;
     width: 25%;
     max-width: 100%;
     height: auto;
+    visibility: hidden;
+}
+
+.userPhoto img.displayServer {
+    position: absolute;
+    left: 75%;
+    bottom: 4%;
+    width: 25%;
+    max-width: 100%;
+    height: auto;
+    visibility: visible;
 }
 
 section {
@@ -70,6 +81,10 @@ ul {
     list-style-type: none;
 }
 
+li.MyMessage{
+    background-color: crimson;
+}
+
 li.Message {
     float: right;
     width: 100%;
@@ -80,23 +95,6 @@ li.Message {
 }
 
 li.Message img.editIcon{
-    display: none;
-}
-
-li.deleteMessage {
-    border-radius: 5%;
-    background-color: #FFDAB9;
-    float: right;
-    width: 100%;
-    min-height: 1%;
-    margin: 0.2%;
-}
-
-li.deleteMessage ul.nav{
-    display: none;
-}
-
-li.deleteMessage img.editIcon{
     display: none;
 }
 
@@ -115,6 +113,23 @@ li.editMessage img.editIcon {
     position: absolute;
     right: 0.1%;
     bottom: 70%;
+}
+
+li.deleteMessage {
+    border-radius: 5%;
+    background-color: #FFDAB9;
+    float: right;
+    width: 100%;
+    min-height: 1%;
+    margin: 0.2%;
+}
+
+li.deleteMessage ul.nav{
+    display: none;
+}
+
+li.deleteMessage img.editIcon{
+    display: none;
 }
 
 div.author {
