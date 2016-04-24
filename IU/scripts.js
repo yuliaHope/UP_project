@@ -2,13 +2,19 @@
 
 var isEdit = false;
 var idEditElement;
-var userName = 'Anonymous';
+var nameList = [];
+var newName;
 
 var uniqueId = function () {
     var date = Date.now();
     var random = Math.random() * Math.random();
 
     return Math.floor(date * random).toString();
+};
+
+var User = {
+    userName: '###',
+    userID: '#'
 };
 
 var Application = {
@@ -24,48 +30,118 @@ function newMessage(name, text, removed, changed) {
         timestamp: new Date().getTime(),
         removed: !!removed,
         changed: !!changed,
-        id: '' + uniqueId()
+        userId: User.userID,
+        id: uniqueId()
     };
 };
 
 
 function run() {
     document.getElementById('Rename').addEventListener('click', delegateEvent);
-    document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
-    document.getElementById('addMessage').addEventListener('click', delegateEvent);
-    document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
+    document.getElementById('Registration').addEventListener('click', delegateEvent);
     document.getElementById('NewName').addEventListener('keydown', delegateEvent);
+    document.getElementById('addUser').addEventListener('click', delegateEvent);
 
-    loadMessages(function () {
-        render(Application);
-    });
+    loadUser();
 
+    if (User.userName != '###') {
+        document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
+        document.getElementById('addMessage').addEventListener('click', delegateEvent);
+        document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
+
+        doPolling();
+    } else
+        alert('Rename or registrate');
 }
 
-function loadMessages(done) {
-    var url = Application.mainUrl + '?token=' + Application.token;
 
-    loadName();
-
-    ajax('GET', url, null, function (responseText) {
-        var response = JSON.parse(responseText);
-
-        Application.messageHistory = response.messages;
-        Application.token = response.token;
-        done();
-    });
-}
-
-function reName() {
+function rename() {
     var name = document.getElementById('NewName');
-    userName = name.value;
-    var user = document.getElementById("userName");
-    user.innerText = userName;
-    name.value = '';
-    saveUserName();
+    var newName = name.value;
+    var userToRename = {
+        name: newName,
+        userId: User.userID
+    };
+
+    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToRename), function (responseText) {
+        if(responseText === ''){
+            User.userName = newName;
+            var user = document.getElementById("userName");
+            user.innerText = User.userName;
+            name.value = '';
+            render(Application);
+        } else {
+            alert('name employed!');
+        }
+        saveUser();
+        run();
+    });
+}
+
+function logIn() {
+    var name = document.getElementById('NewName');
+    newName = name.value;
+    var userToLogIn = {
+        name: newName,
+        userId: ''
+    };
+
+    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToLogIn), function (responseText) {
+        if(responseText === ''){
+            alert('this user doesn\'t registrate');
+        } else {
+            var response = JSON.parse(responseText);
+            User.userID = response.userId;
+            User.userName = newName;
+            var user = document.getElementById("userName");
+            user.innerText = User.userName;
+            name.value = '';
+            render(Application);
+        }
+        saveUser();
+        run();
+    });
+}
+
+function signUp() {
+    var name = document.getElementById('NewName');
+    newName = name.value;
+    var userToSignUp = {
+        name: newName,
+        userId: uniqueId()
+    };
+
+    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToSignUp), function (responseText) {
+        if(responseText === ''){
+            User.userName = newName;
+            User.userID = userToSignUp.userId;
+            var user = document.getElementById("userName");
+            user.innerText = User.userName;
+            name.value = '';
+            render(Application);
+        } else {
+            alert('name employed!');
+        }
+        saveUser();
+        run();
+    });
 }
 
 function delegateEvent(event) {
+    if (event.target.classList.contains('Registration')) {
+        signUp(render(Application));
+        return;
+    }
+    if (event.target.classList.contains('addUser')) {
+        logIn(render(Application));
+        return;
+    }
+    if (event.target.classList.contains('Rename')
+        || (event.target.classList.contains('NewName')
+        && event.type === 'keydown' && event.keyCode == 13)) {
+        rename();
+        return;
+    }
     if (event.target.classList.contains('editMsg')
         || event.target.classList.contains('editText')) {
         prepareMessageForEdit(event.target);
@@ -83,12 +159,6 @@ function delegateEvent(event) {
         onEditIconClick();
         return;
     }
-    if (event.target.classList.contains('Rename')
-        || (event.target.classList.contains('NewName')
-        && event.type === 'keydown' && event.keyCode == 13)) {
-        reName();
-        return;
-    }
     if (event.target.classList.contains('addMessage')
         || event.type === 'keydown' && event.keyCode == 13) {
         onAddButtonClick();
@@ -96,7 +166,7 @@ function delegateEvent(event) {
     }
 }
 
-function searchRootElement(element){
+function searchRootElement(element) {
     while (element != this) {
         if (element.classList.contains('Message')
             || element.classList.contains('editMessage')) {
@@ -121,7 +191,7 @@ function deleteMessage(id, done) {
     var messageToDelete = Application.messageHistory[index];
     messageToDelete.text = 'This message has been removed.';
     messageToDelete.removed = !messageToDelete.removed;
-    messageToDelete.author = userName;
+    messageToDelete.author = User.userName;
     messageToDelete.timestamp = new Date().getTime();
 
     var url = Application.mainUrl + '?msgId=' + id;
@@ -163,7 +233,7 @@ function addEditMessage(id, done) {
     messageToPut.changed = !messageToPut.changed;
     messageToPut.text = textValue();
     messageToPut.timestamp = new Date().getTime();
-    messageToPut.author = userName;
+    messageToPut.author = User.userName;
 
     ajax('PUT', Application.mainUrl, JSON.stringify(messageToPut), function () {
         Application.messageHistory.splice(index, 1);
@@ -184,7 +254,7 @@ function addMessage(text, done) {
     if (text == '' || text == null)
         return;
 
-    var message = newMessage(userName, text, false, false, true);
+    var message = newMessage(User.userName, text, false, false, true);
 
     ajax('POST', Application.mainUrl, JSON.stringify(message), function () {
         Application.messageHistory.push(message);
@@ -216,7 +286,7 @@ function updateList(element, messagesMap) {
 
         if (message == null) {
             notFound.push(child);
-            continue;
+            //continue;
         }
 
         renderMessageState(child, message);
@@ -263,11 +333,16 @@ function dateParse(millisecondsTime) {
 
 function renderMessageState(element, message) {
     if (message.removed) {
-        element.classList.remove('Message')
+        element.classList.remove('Message');
         element.classList.add('deleteMessage');
     } else if (message.changed) {
-        element.classList.remove('Message')
+        element.classList.remove('Message');
         element.classList.add('editMessage');
+    }
+    if(message.userId !== User.userID){
+        element.classList.add('MyMessage');
+    } else if(element.classList.contains('MyMessage')){
+        element.classList.remove('MyMessage');
     }
     element.setAttribute('message-id', message.id);
     element.getElementsByClassName('author')[0].innerText = message.author;
@@ -324,7 +399,7 @@ function visibleServerErr(state) {
             document.getElementById('server').classList.add('displayServer');
             return;
         }
-    } else if(state === 'hidden'){
+    } else if (state === 'hidden') {
         if (document.getElementById('server').classList.contains('displayServer')) {
             document.getElementById('server').classList.remove('displayServer');
             document.getElementById('server').classList.add('hiddenServer');
@@ -346,7 +421,6 @@ function ajax(method, url, data, continueWith, continueWithError) {
         }
 
         if (xhr.status != 200) {
-            visibleServerErr('visible');
             continueWithError('Error on the server side, response ' + xhr.status);
             return;
         }
@@ -380,22 +454,53 @@ function ajax(method, url, data, continueWith, continueWithError) {
     xhr.send(data);
 }
 
-function saveUserName() {
-    if(typeof(Storage) == "undefined") {
-        alert('localStorage is not accessible');
-        return;
+function doPolling() {
+    function loop() {
+        var url = Application.mainUrl + '?token=' +
+            Application.token;
+        ajax('GET', url, null, function (responseText) {
+            var response = JSON.parse(responseText);
+            Application.token = response.token;
+            updateHistory(response.messages);
+            render(Application);
+            setTimeout(loop, 1000);
+        }, function (error) {
+            defaultErrorHandler(error);
+            setTimeout(loop, 1000);
+        });
     }
-    localStorage.setItem("Username", JSON.stringify(userName));
+
+    loop();
 }
 
-function loadName() {
+function updateHistory(messageList) {
+    for (var i = 0; i < messageList.length; ++i) {
+        Application.messageHistory.push(messageList[i]);
+    }
+}
+
+function saveUser() {
     if(typeof(Storage) == "undefined") {
         alert('localStorage is not accessible');
         return;
     }
-    var name = localStorage.getItem("Username");
-    userName = name && JSON.parse(name);
-    var user = document.getElementById("userName");
-    user.innerText = userName;
+    localStorage.setItem("User", JSON.stringify(User));
 }
+
+function loadUser() {
+    if (typeof(Storage) == "undefined") {
+        alert('localStorage is not accessible');
+        return;
+    }
+
+    var item = localStorage.getItem("User");
+    if (item != null) {
+        var itemUser = item && JSON.parse(item);
+        User.userName = itemUser.userName;
+        User.userID = itemUser.userID;
+        var user = document.getElementById("userName");
+        user.innerText = User.userName;
+    }
+}
+
 

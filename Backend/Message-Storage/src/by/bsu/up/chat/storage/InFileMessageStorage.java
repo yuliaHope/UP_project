@@ -26,12 +26,14 @@ public class InFileMessageStorage implements MessageStorage {
     private WorkFile wf = new WorkFile();
 
     @Override
-    public void loadMessages() {
+    public void loadMessages(NameStorage nameStorage) {
         try {
             JSONArray array = (JSONArray) Read.read(DEFAULT_MEMORY_FILE, wf);
             List<Message> list = new ArrayList<>();
             for (Object o : array) {
-                list.add(MessageHelper.JSONObjectToMessage((JSONObject) o));
+                Message message = MessageHelper.JSONObjectToMessage((JSONObject) o);
+                list.add(message);
+                nameStorage.newUser(message.getAuthor(), message.getUserId());
             }
             messages.addAll(list);
         } catch (ParseException e) {
@@ -65,13 +67,7 @@ public class InFileMessageStorage implements MessageStorage {
 
     @Override
     public void updateMessage(Message message) {
-        for (Message item : messages) {
-            if (item.getId().equals(message.getId())) {
-                item.setText(message.getText());
-                item.setTimestamp(message.getTimestamp());
-                item.setChanged(true);
-            }
-        }
+        messages.add(message);
         try {
             Write.write(wf, MessageHelper.messageToJSONArray(messages), DEFAULT_MEMORY_FILE);
         } catch (IOException e) {
@@ -83,8 +79,13 @@ public class InFileMessageStorage implements MessageStorage {
     public synchronized void removeMessage(String messageId) {
         for (Message item : messages) {
             if (item.getId().equals(messageId)) {
-                item.setText("This message has been removed.");
-                item.setRemoved(true);
+                Message removedMsg = new Message();
+                removedMsg.setText("This message has been removed.");
+                removedMsg.setRemoved(true);
+                removedMsg.setUserId(item.getUserId());
+                removedMsg.setId(messageId);
+                removedMsg.setAuthor(item.getAuthor());
+                messages.add(removedMsg);
                 break;
             }
         }

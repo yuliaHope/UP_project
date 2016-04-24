@@ -17,6 +17,10 @@ header {
     padding: 0.26%;
 }
 
+#password {
+    width: 85%;
+}
+
 div.userPhoto {
     position: fixed;
     top: 15%;
@@ -81,8 +85,8 @@ ul {
     list-style-type: none;
 }
 
-li.MyMessage{
-    background-color: crimson;
+li.MyMessage ul.nav{
+    visibility: hidden;
 }
 
 li.Message {
@@ -93,6 +97,9 @@ li.Message {
     margin: 0.2%;
     border-radius: 5%;
 }
+li.MyMessage {
+    background-color: aliceblue;
+}
 
 li.Message img.editIcon{
     display: none;
@@ -101,7 +108,7 @@ li.Message img.editIcon{
 li.editMessage {
     position: relative;
     border-radius: 5%;
-    background-color: azure;
+    background-color: cornsilk;
     float: right;
     width: 100%;
     min-height: 1%;
@@ -212,12 +219,22 @@ article ul#changeMenu li div {
     color: #888;
 }
 
-#addMessage, #Rename {
+#addMessage, #Rename, #Registration, #addUser {
     border-radius: 10%;
     background-color: rgb(93, 6, 24);
     color: white;
     font-size: 90%;
     border: hidden;
+}
+
+#addUser {
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+}
+
+#Registration {
+    float: left;
 }
 
 #addMessage {

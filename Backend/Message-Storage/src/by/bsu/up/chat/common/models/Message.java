@@ -5,12 +5,20 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     private String id;
+    private String userId;
     private String author;
     private long timestamp;
     private String text;
     private boolean removed;
     private boolean changed;
-    private boolean myMessage;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public boolean getRemoved() {
         return removed;
@@ -26,14 +34,6 @@ public class Message implements Serializable {
 
     public void setChanged(boolean changed) {
         this.changed = changed;
-    }
-
-    public boolean getMyMessage() {
-        return myMessage;
-    }
-
-    public void setMyMessage(boolean myMessage) {
-        this.myMessage = myMessage;
     }
 
     public String getId() {
@@ -77,7 +77,6 @@ public class Message implements Serializable {
                 ", text='" + text + '\'' +
                 ", removed=" + removed +
                 ", changed=" + changed +
-                ", who=" + myMessage +
                 '}';
     }
 

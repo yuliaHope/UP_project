@@ -7,7 +7,7 @@ import java.util.List;
 public interface MessageStorage {
 
 
-    void loadMessages();
+    void loadMessages(NameStorage nameStorage);
     /**
      * @return the list of messages of the specified range
      * @param portion the DTO which defines range of messages to be returned
@@ -33,7 +33,6 @@ public interface MessageStorage {
      * @return true if message was deleted successfully and false otherwise
      */
     void removeMessage(String messageId);
-
 
     /**
      * @return the amount of stored messages

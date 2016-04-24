@@ -6,13 +6,14 @@ import by.bsu.up.chat.common.models.Message;
 import by.bsu.up.chat.logging.Logger;
 import by.bsu.up.chat.logging.impl.FileLog;
 import by.bsu.up.chat.storage.InFileMessageStorage;
-import by.bsu.up.chat.storage.MessageStorage;
+import by.bsu.up.chat.storage.NameStorage;
 import by.bsu.up.chat.storage.Portion;
 import by.bsu.up.chat.utils.MessageHelper;
 import by.bsu.up.chat.utils.StringUtils;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -25,10 +26,12 @@ public class ServerHandler implements HttpHandler {
 
     private static final Logger logger = FileLog.create("ServerHandlerLog.txt");
 
-    private MessageStorage messageStorage = new InFileMessageStorage();
+    private InFileMessageStorage messageStorage = new InFileMessageStorage();
 
-    public ServerHandler() {
-        messageStorage.loadMessages();
+    private NameStorage nameStorage = new NameStorage();
+
+    public ServerHandler(){
+        messageStorage.loadMessages(nameStorage);
     }
 
     @Override
@@ -60,6 +63,8 @@ public class ServerHandler implements HttpHandler {
             return doDelete(httpExchange);
         } else if (Constants.REQUEST_METHOD_OPTIONS.equals(httpExchange.getRequestMethod())) {
             return doOptions(httpExchange);
+        } else if (Constants.REQUEST_METHOD_REGISTRATION.equals(httpExchange.getRequestMethod())) {
+            return doRegistration(httpExchange);
         } else {
             return new Response(Constants.RESPONSE_CODE_METHOD_NOT_ALLOWED,
                     String.format("Unsupported http method %s", httpExchange.getRequestMethod()));
@@ -131,7 +136,7 @@ public class ServerHandler implements HttpHandler {
         Map<String, String> map = queryToMap(query);
         String messageId = map.get(Constants.REQUEST_PARAM_MESSAGE_ID);
         if (StringUtils.isEmpty(messageId)) {
-            return Response.badRequest("Token query parameter is required");
+            return Response.badRequest("ID query parameter is required");
         }
         logger.info(" request parameters: ID: " + messageId);
         try {
@@ -140,6 +145,28 @@ public class ServerHandler implements HttpHandler {
             return Response.ok();
         } catch (InvalidTokenException e) {
             return Response.badRequest(e.getMessage());
+        }
+    }
+
+    private Response doRegistration(HttpExchange httpExchange) {
+        logger.info(" request method: REGISTRATION");
+        try {
+            String response = MessageHelper.inputStreamToString(httpExchange.getRequestBody());
+            String name = MessageHelper.getClientName(response);
+            String id = MessageHelper.getClientId(response);
+            logger.info(String.format(" request new user %s", name));
+            String newUserId = nameStorage.newUser(name, id);
+            if (newUserId.equals("-1")) {
+                logger.info(" response sent");
+                return Response.ok();
+            } else {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("userId", newUserId);
+                return Response.ok(jsonObject.toJSONString());
+            }
+        } catch (ParseException e) {
+            logger.error("Could not parse message.", e);
+            return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
         }
     }
 
