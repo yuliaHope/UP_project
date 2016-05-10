@@ -1,0 +1,546 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+header {
+    background-color: rgb(93, 6, 24);
+    position: fixed;
+    top: 0%;
+    height: 13%;
+    min-height: 7%;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 100%;
+    padding: 0.26%;
+}
+
+#password {
+    width: 85%;
+}
+
+div.userPhoto {
+    position: fixed;
+    top: 15%;
+    left: 18%;
+    padding: 0.26%;
+    width: 12%;
+    margin: 0.25%;
+}
+
+.userPhoto #mainPhoto {
+    width: 95%;
+    border: 0.65em solid #fff;
+    border-bottom: 3em solid #fff;
+    box-shadow: 0.2em 0.2em 0.2em #777;
+    max-width: 100%;
+    height: auto;
+}
+
+#userName {
+    position: absolute;
+    text-align: left;
+    bottom: 0%;
+    font: 400 100%/1 'Kaushan Script', cursive;
+    color: #888;
+}
+
+.userPhoto img.hiddenServer {
+    position: absolute;
+    left: 75%;
+    bottom: 4%;
+    width: 25%;
+    max-width: 100%;
+    height: auto;
+    visibility: hidden;
+}
+
+.userPhoto img.displayServer {
+    position: absolute;
+    left: 75%;
+    bottom: 4%;
+    width: 25%;
+    max-width: 100%;
+    height: auto;
+    visibility: visible;
+}
+
+section {
+    position: fixed;
+    top: 15%;
+    height: 63%;
+    width: 40%;
+    left: 33%;
+    padding: 1%;
+    background-color: #F8F8FF;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li.MyMessage ul.nav {
+    visibility: hidden;
+}
+
+li.Message {
+    float: right;
+    width: 100%;
+    min-height: 1%;
+    background-color: white;
+    margin: 0.2%;
+    border-radius: 5%;
+}
+
+li.MyMessage {
+    background-color: aliceblue;
+}
+
+li.Message img.editIcon {
+    display: none;
+}
+
+li.editMessage {
+    position: relative;
+    border-radius: 5%;
+    background-color: cornsilk;
+    float: right;
+    width: 100%;
+    min-height: 1%;
+    margin: 0.2%;
+}
+
+li.editMessage img.editIcon {
+    width: 5%;
+    position: absolute;
+    right: 0.1%;
+    bottom: 70%;
+}
+
+li.deleteMessage {
+    border-radius: 5%;
+    background-color: #FFDAB9;
+    float: right;
+    width: 100%;
+    min-height: 1%;
+    margin: 0.2%;
+}
+
+li.deleteMessage ul.nav {
+    display: none;
+}
+
+li.deleteMessage img.editIcon {
+    display: none;
+}
+
+div.author {
+    color: maroon;
+}
+
+div.messageText {
+    padding: 0.26%;
+    position: relative;
+    width: 85%;
+    font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
+    font-size: 0.9em;
+    line-height: 1.182;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+
+div.timestamp {
+    position: relative;
+    left: 90%;
+    font-size: 0.7em;
+    bottom: 10%;
+    color: darkgrey;
+}
+
+img.icon {
+    width: 15%;
+}
+
+footer {
+    background-color: rgb(93, 6, 24);
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 0.26%;
+    position: fixed;
+    width: 100%;
+    bottom: 0.01%;
+}
+
+#inputMessage {
+    position: fixed;
+    bottom: 8%;
+    left: 33%;
+    height: 5%;
+    padding: 0.26%;
+    width: 33%;
+}
+
+#changeName {
+    position: fixed;
+    border-radius: 5%;
+    top: 45%;
+    left: 18.5%;
+    width: 12.5%;
+    height: 20%;
+    background-color: #F8F8FF;
+}
+
+#NewName {
+    width: 85%;
+}
+
+#changeMenu {
+    position: absolute;
+    left: 3%;
+}
+
+#changeMenu li ul li {
+    padding: 3%;
+}
+
+article ul#changeMenu li div {
+    position: relative;
+    top: 2%;
+    width: 10%;
+    border-radius: 5%;
+    left: 5%;
+    font: 400 100%/1 'Kaushan Script', cursive;
+    color: #888;
+}
+
+div.login-form {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+}
+
+#addMessage, #Rename, #Registration, #Login {
+    border-radius: 10%;
+    background-color: rgb(93, 6, 24);
+    color: white;
+    font-size: 90%;
+    border: hidden;
+}
+
+#Login {
+    position: absolute;
+    margin: 3%;
+    width: 27%;
+    float: left;
+    height: 20%;
+}
+
+div.login-form form {
+    height: 75%;
+    width: 70%;
+
+}
+
+div.buttons ul {
+    display: block;
+    margin: 3%;
+    padding: 5%;
+}
+
+#Registration {
+    position: absolute;
+    width: 27%;
+    height: 20%;
+    left: 30%;
+    margin: 3%;
+}
+
+.errorAuthentication {
+    color: red;
+}
+
+#addMessage {
+    position: fixed;
+    bottom: 10%;
+    left: 68%;
+    height: 5%;
+    width: 7%;
+}
+
+ul.nav, ul.nav ul, ul.nav li {
+    margin: 0;
+    padding: 0;
+}
+
+ul.nav ul {
+    background: #FFDAB9;
+}
+
+ul.nav {
+    position: relative;
+    float: right;
+    display: table;
+    width: 30%;
+}
+
+ul.nav ul {
+    border-radius: 5%;
+    position: absolute;
+    z-index: 5;
+    display: none;
+}
+
+ul.nav li:hover ul {
+    display: block;
+    bottom: 100%;
+}
+
+ul.nav li {
+    display: inline;
+    text-align: right;
+}
+
+ul.nav ul li {
+    display: block;
+    text-align: left;
+}
+
+ul.nav .right {
+    direction: rtl;
+}
+
+ul.nav li {
+    display: block;
+    padding: 0.3% 0;
+    color: black;
+    text-decoration: none;
+}
+
+ul.nav ul li {
+    padding: 0.3% 1%;
+}
+
+ul.nav li ul li:hover {
+    background-color: #F8F8FF;
+}
+
+@media screen and (max-width: 1200px) {
+    #addMessage {
+        bottom: 10%;
+        left: 90%;
+        width: 8%;
+    }
+
+    #inputMessage {
+        bottom: 7%;
+        left: 35%;
+        width: 50%;
+        margin: 1%;
+        border-radius: 5%;
+    }
+
+    img.icon {
+        width: 15%;
+    }
+
+    section {
+        top: 14%;
+        left: 35%;
+        width: 60%;
+        margin: 1%;
+    }
+
+    div.timestamp {
+        left: 83%;
+        margin: 1%;
+    }
+
+    #name {
+        width: 30%;
+        left: 40%;
+    }
+
+    #changeName {
+        position: fixed;
+        top: 50%;
+        width: 15%;
+        left: 16%;
+    }
+
+    #Rename {
+        left: 4%;
+        bottom: 6%;
+    }
+
+    article ul#changeMenu li div {
+        font-size: 120%;
+    }
+
+    div.userPhoto {
+        width: 15%;
+        left: 15%;
+    }
+
+    #userName {
+        font-size: 130%;
+    }
+}
+
+@media screen and (max-width: 976px) {
+    ul.messageHistory {
+        left: 18%;
+    }
+
+    #changeName {
+        top: 43%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    div.userPhoto {
+        display: none;
+    }
+
+    #changeName {
+        top: 9%;
+        left: 1%;
+        width: 30%;
+        height: 5%;
+    }
+
+    section {
+        left: 1%;
+        width: 95%;
+        height: 68%;
+    }
+
+    #addMessage {
+        bottom: 8%;
+        width: 10%;
+        left: 89%;
+    }
+
+    #inputMessage {
+        bottom: 6%;
+        left: 1%;
+        width: 80%;
+        margin: 1%;
+        border-radius: 5%;
+    }
+
+    ul#changeMenu, ul#changeMenu ul, ul#changeMenu li {
+        margin: 0;
+        padding: 1%;
+        width: 130%;
+    }
+
+    ul#changeMenu ul {
+        width: 130%;
+        height: 20%;
+    }
+
+    ul#changeMenu {
+        position: relative;
+        float: left;
+        display: table;
+        width: 30%;
+
+    }
+
+    ul#changeMenu ul {
+        border-radius: 5%;
+        position: absolute;
+        width: 218%;
+        z-index: 5;
+        display: none;
+    }
+
+    ul#changeMenu li:hover ul {
+        display: block;
+        top: 100%;
+    }
+
+    ul#changeMenu li {
+        display: inline;
+        align-content: left;
+    }
+
+    ul#changeMenu ul li {
+        display: block;
+        align-content: left;
+    }
+
+    ul#changeMenu .right {
+        direction: rtl;
+    }
+
+    ul#changeMenu li {
+        display: block;
+        padding: 0.3% 0;
+        color: black;
+        text-decoration: none;
+    }
+
+    ul#changeMenu ul li {
+        padding: 0.3% 1%;
+    }
+
+    ul#changeMenu li ul li {
+        background-color: #F8F8FF;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #addMessage {
+        left: 85%;
+        width: 14%;
+        bottom: 7%;
+    }
+
+    img.icon {
+        width: 20%;
+    }
+
+    span.delText, .editText {
+        display: none;
+    }
+
+    img.icon {
+        width: 30%;
+    }
+}
+
+@media screen and (max-height: 435px) {
+    header {
+        height: 10%;
+        font-size: 50%;
+    }
+
+    footer {
+        height: 5%;
+        font-size: 50%;
+    }
+
+    #changeName {
+        top: 5%;
+    }
+
+    ul#changeMenu li div {
+        font-size: 40%;
+        top: 1%;
+    }
+
+    #addMessage {
+        bottom: 8%;
+        height: 6%;
+    }
+}
+
+L
