@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Registration extends HttpServlet {
+public class AuthenticationServlet extends HttpServlet {
     private static final String PARAM_USERNAME = "login";
     public static final String COOKIE_USER_ID = "pass";
+    public static final String PARAM_UID = COOKIE_USER_ID;
 
     private int cookieLifeTime = 3600;
 
@@ -27,16 +28,19 @@ public class Registration extends HttpServlet {
         String nameFromPas = FileKeyStorage.getUserByUid(pas);
 
         if (nameFromPas == null) {
-            FileKeyStorage.output(name, pas);
+            req.setAttribute("errorMsg", "This user doesn't registrate");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        } else if (nameFromPas.equals(name)) {
             Cookie userIdCookie = new Cookie(COOKIE_USER_ID, pas);
             Cookie userNameCookie = new Cookie(PARAM_USERNAME, name);
             userIdCookie.setMaxAge(cookieLifeTime);
             resp.addCookie(userIdCookie);
             resp.addCookie(userNameCookie);
             resp.sendRedirect("/ConversationM.html");
-        } else if (nameFromPas.equals(name)) {
-            req.setAttribute("errorMsg", "This name or password has employed!");
+        } else {
+            req.setAttribute("errorMsg", "Incorrect password or name");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
 }
+

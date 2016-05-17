@@ -4,6 +4,11 @@ body {
     width: 100%;
 }
 
+.unauthorised {
+    position: absolute;
+    align-content: center;
+}
+
 header {
     background-color: rgb(93, 6, 24);
     position: fixed;
@@ -210,7 +215,7 @@ footer {
     padding: 3%;
 }
 
-article ul#changeMenu li div {
+nav ul#changeMenu li a {
     position: relative;
     top: 2%;
     width: 10%;
@@ -226,11 +231,19 @@ div.login-form {
     left: 35%;
 }
 
-#addMessage, #Rename, #Registration, #Login {
+#addMessage, #Registration, #Login {
     border-radius: 10%;
     background-color: rgb(93, 6, 24);
     color: white;
     font-size: 90%;
+    border: hidden;
+}
+
+#Rename, #Exit {
+    background-color: inherit;
+    color: rgb(93, 6, 24);
+    font: 400 100%/1 'Kaushan Script', cursive;
+    font-weight: 200;
     border: hidden;
 }
 
@@ -542,5 +555,3 @@ ul.nav li ul li:hover {
         height: 6%;
     }
 }
-
-L

@@ -17,10 +17,17 @@ var User = {
 };
 
 var Application = {
-    mainUrl: 'http://localhost:8080/chat',
+    mainUrl: 'http://localhost:8080/conversation',
     messageHistory: [],
     token: 'TN11EN'
 };
+
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 
 function newMessage(name, text, removed, changed) {
     return {
@@ -37,105 +44,14 @@ function newMessage(name, text, removed, changed) {
 
 function run() {
     loadUser();
+    document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
+    document.getElementById('addMessage').addEventListener('click', delegateEvent);
+    document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
 
-    if (User.userName != '###') {
-        document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
-        document.getElementById('addMessage').addEventListener('click', delegateEvent);
-        document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
-
-        doPolling();
-    } else
-        alert('Rename or registrate');
-}
-
-
-function rename() {
-    var name = document.getElementById('NewName');
-    var newName = name.value;
-    var userToRename = {
-        name: newName,
-        userId: User.userID
-    };
-
-    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToRename), function (responseText) {
-        if (responseText === '') {
-            User.userName = newName;
-            var user = document.getElementById("userName");
-            user.innerText = User.userName;
-            name.value = '';
-            render(Application);
-        } else {
-            alert('name employed!');
-        }
-        saveUser();
-        run();
-    });
-}
-
-function logIn() {
-    var name = document.getElementById('NewName');
-    newName = name.value;
-    var userToLogIn = {
-        name: newName,
-        userId: ''
-    };
-
-    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToLogIn), function (responseText) {
-        if (responseText === '') {
-            alert('this user doesn\'t registrate');
-        } else {
-            var response = JSON.parse(responseText);
-            User.userID = response.userId;
-            User.userName = newName;
-            var user = document.getElementById("userName");
-            user.innerText = User.userName;
-            name.value = '';
-            render(Application);
-        }
-        saveUser();
-        run();
-    });
-}
-
-function signUp() {
-    var name = document.getElementById('NewName');
-    newName = name.value;
-    var userToSignUp = {
-        name: newName,
-        userId: uniqueId()
-    };
-
-    ajax('REGISTRATION', Application.mainUrl, JSON.stringify(userToSignUp), function (responseText) {
-        if (responseText === '') {
-            User.userName = newName;
-            User.userID = userToSignUp.userId;
-            var user = document.getElementById("userName");
-            user.innerText = User.userName;
-            name.value = '';
-            render(Application);
-        } else {
-            alert('name employed!');
-        }
-        saveUser();
-        run();
-    });
+    doPolling();
 }
 
 function delegateEvent(event) {
-    if (event.target.classList.contains('Registration')) {
-        signUp(render(Application));
-        return;
-    }
-    if (event.target.classList.contains('addUser')) {
-        logIn(render(Application));
-        return;
-    }
-    if (event.target.classList.contains('Rename')
-        || (event.target.classList.contains('NewName')
-        && event.type === 'keydown' && event.keyCode == 13)) {
-        rename();
-        return;
-    }
     if (event.target.classList.contains('editMsg')
         || event.target.classList.contains('editText')) {
         prepareMessageForEdit(event.target);
@@ -471,28 +387,13 @@ function updateHistory(messageList) {
     }
 }
 
-function saveUser() {
-    if (typeof(Storage) == "undefined") {
-        alert('localStorage is not accessible');
-        return;
-    }
-    localStorage.setItem("User", JSON.stringify(User));
-}
-
 function loadUser() {
-    if (typeof(Storage) == "undefined") {
-        alert('localStorage is not accessible');
-        return;
-    }
+    User.userName = getCookie("login");
+    User.userID = getCookie("pass");
 
-    var item = localStorage.getItem("User");
-    if (item != null) {
-        var itemUser = item && JSON.parse(item);
-        User.userName = itemUser.userName;
-        User.userID = itemUser.userID;
-        var user = document.getElementById("userName");
-        user.innerText = User.userName;
-    }
+    var user = document.getElementById("userName");
+    user.innerText = User.userName;
+
 }
 
 

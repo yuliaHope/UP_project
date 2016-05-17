@@ -10,7 +10,6 @@
 </head>
 <body onload="run();">
 
-
 <header>
     <h1>Chat</h1>
 </header>
@@ -48,27 +47,18 @@
     </button>
 </article>
 
-<article id="changeName">
-    <ul id="changeMenu">
-        <li>
-            <div>Rename</div>
-            <ul>
-                <li><input id="NewName"
-                           class="NewName"
-                           type="text"
-                           placeholder="Input name...">
-                </li>
-                <li>
-                    <button id="Rename"
-                            class="Rename"
-                            type="button">
-                        Change
-                    </button>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</article>
+<form method="post">
+    <nav id="changeName">
+        <ul id="changeMenu">
+            <li><img class="icon"
+                     src="https://lh3.googleusercontent.com/dbnQXP6_DXe4LPY8VtiKUuuZSTyJu-rXaTQNsKGD0v14HdNbNO8AIep6Hu0lWhcwIa2s=w1107-h623-rw-no"
+                     alt="Exit"
+                     title="Exit">
+                <button id="Exit" type="sumbit" formaction="/exit"><span class='navText'>Exit</span></a></button>
+            </li>
+        </ul>
+    </nav>
+</form>
 
 <footer class="footer">
     <div class="container">
@@ -109,6 +99,5 @@
         </ul>
     </li>
 </div>
-
 </body>
 </html>
