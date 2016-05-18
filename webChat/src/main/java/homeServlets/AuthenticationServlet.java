@@ -13,7 +13,7 @@ public class AuthenticationServlet extends HttpServlet {
     public static final String COOKIE_USER_ID = "pass";
     public static final String PARAM_UID = COOKIE_USER_ID;
 
-    private int cookieLifeTime = 3600;
+    private int cookieLifeTime = 30;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -36,7 +36,8 @@ public class AuthenticationServlet extends HttpServlet {
             userIdCookie.setMaxAge(cookieLifeTime);
             resp.addCookie(userIdCookie);
             resp.addCookie(userNameCookie);
-            resp.sendRedirect("/ConversationM.html");
+            req.getRequestDispatcher("/ConversationM.html").forward(req, resp);
+            //resp.sendRedirect("/ConversationM.html");
         } else {
             req.setAttribute("errorMsg", "Incorrect password or name");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);

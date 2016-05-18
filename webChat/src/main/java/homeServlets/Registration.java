@@ -12,7 +12,7 @@ public class Registration extends HttpServlet {
     private static final String PARAM_USERNAME = "login";
     public static final String COOKIE_USER_ID = "pass";
 
-    private int cookieLifeTime = 3600;
+    private int cookieLifeTime = 30;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

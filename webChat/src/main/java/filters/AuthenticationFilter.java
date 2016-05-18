@@ -4,12 +4,11 @@ import homeServlets.AuthenticationServlet;
 import homeServlets.FileKeyStorage;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(value = "/ConversationM.html")
 public class AuthenticationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,17 +20,24 @@ public class AuthenticationFilter implements Filter {
         String uidParam = req.getParameter(AuthenticationServlet.PARAM_UID);
         if (uidParam == null && req instanceof HttpServletRequest) {
             Cookie[] cookies = ((HttpServletRequest) req).getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(AuthenticationServlet.COOKIE_USER_ID)) {
-                    uidParam = cookie.getValue();
+            try {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals(AuthenticationServlet.COOKIE_USER_ID)) {
+                        uidParam = cookie.getValue();
+                    }
                 }
+            } catch (NullPointerException e) {
             }
         }
         boolean valid = checkRequest(uidParam);
         if (valid) {
             filterChain.doFilter(req, resp);
-        } else  {
+        } else if (resp instanceof HttpServletResponse) {
+            //((HttpServletResponse) resp).sendRedirect("/unauthorized.html");
             req.getRequestDispatcher("/unauthorized.html").forward(req, resp);
+        } else {
+            req.setAttribute("errorMsg", "403, Forbidden");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
 

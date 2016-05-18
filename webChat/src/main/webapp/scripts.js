@@ -47,6 +47,7 @@ function run() {
     document.getElementsByClassName('messageHistory')[0].addEventListener('click', delegateEvent);
     document.getElementById('addMessage').addEventListener('click', delegateEvent);
     document.getElementById('inputMessage').addEventListener('keydown', delegateEvent);
+    document.getElementById('Exit').addEventListener('click', delCookie);
 
     doPolling();
 }
@@ -74,6 +75,11 @@ function delegateEvent(event) {
         onAddButtonClick();
         return;
     }
+}
+
+function delCookie() {
+    document.cookie = 'login' + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    document.cookie = 'pass' + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
 }
 
 function searchRootElement(element) {

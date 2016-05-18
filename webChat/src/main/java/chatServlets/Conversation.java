@@ -40,60 +40,39 @@ public class Conversation extends HttpServlet {
             String responseBody = MessageHelper.buildServerResponseBody(messages, messageStorage.size());
             resp.getOutputStream().println(responseBody);
         } catch (InvalidTokenException e) {
-            resp.sendError(400, e.getMessage());
+            resp.sendError(400, "Bad Request");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       // logger.info(" request method: POST");
         try {
             Message message = MessageHelper.getClientMessage(req.getInputStream());
-          //  logger.info(String.format(" request new message from user: %s", message));
             messageStorage.addMessage(message);
-           // logger.info(" response sent");
-            //return Response.ok();
         } catch (ParseException e) {
-            //logger.error("Could not parse message.", e);
-            //return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
+            resp.sendError(400, "Bad Request");
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //logger.info(" request method: PUT");
         try {
             Message message = MessageHelper.getClientMessage(req.getInputStream());
-          //  logger.info(String.format("Update message by id: %s", message));
             messageStorage.updateMessage(message);
-            //logger.info(" response sent");
-            //return Response.ok();
         } catch (ParseException e) {
-            //logger.error("Could not parse message.", e);
-            //return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
+            resp.sendError(400, "Bad Request");
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //logger.info(" request method: DELETE");
         String query = req.getQueryString();
-        //String query = httpExchange.getRequestURI().getQuery();
-        if (query == null) {
-            //return Response.badRequest("Absent query in request");
-        }
         Map<String, String> map = queryToMap(query);
         String messageId = map.get(Constants.REQUEST_PARAM_MESSAGE_ID);
-        if (StringUtils.isEmpty(messageId)) {
-            //return Response.badRequest("ID query parameter is required");
-        }
-        //logger.info(" request parameters: ID: " + messageId);
         try {
             messageStorage.removeMessage(messageId);
-            //logger.info(" response: history size=" + messageStorage.size());
-            //return Response.ok();
         } catch (InvalidTokenException e) {
-           // return Response.badRequest(e.getMessage());
+            resp.sendError(400, "Bad Request");
         }
     }
 
