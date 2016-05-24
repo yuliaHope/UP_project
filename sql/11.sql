@@ -1,0 +1,1 @@
+SELECT *, TO_DAYS(now()) - TO_DAYS(date) FROM chat.messages ORDER BY date LIMIT 1;

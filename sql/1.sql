@@ -1,0 +1,1 @@
+SELECT text FROM chat.messages ORDER BY date;

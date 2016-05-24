@@ -1,0 +1,1 @@
+SELECT users.name, messages.text, messages.date FROM chat.users AS users INNER JOIN messages ON users.id=messages.user_id ORDER BY date;

@@ -1,0 +1,1 @@
+SELECT text FROM chat.messages WHERE user_id=3 AND date="2016-05-09";
