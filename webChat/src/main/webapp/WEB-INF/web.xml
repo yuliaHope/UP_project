@@ -12,6 +12,10 @@
     </filter>
     <filter-mapping>
         <filter-name>filterChat</filter-name>
+        <servlet-name>Conversation</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>filterChat</filter-name>
         <url-pattern>/ConversationM.html</url-pattern>
     </filter-mapping>
 

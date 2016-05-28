@@ -33,7 +33,6 @@ public class AuthenticationFilter implements Filter {
         if (valid) {
             filterChain.doFilter(req, resp);
         } else if (resp instanceof HttpServletResponse) {
-            //((HttpServletResponse) resp).sendRedirect("/unauthorized.html");
             req.getRequestDispatcher("/unauthorized.html").forward(req, resp);
         } else {
             req.setAttribute("errorMsg", "403, Forbidden");

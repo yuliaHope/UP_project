@@ -36,12 +36,10 @@ public class AuthenticationServlet extends HttpServlet {
             userIdCookie.setMaxAge(cookieLifeTime);
             resp.addCookie(userIdCookie);
             resp.addCookie(userNameCookie);
-            req.getRequestDispatcher("/ConversationM.html").forward(req, resp);
-            //resp.sendRedirect("/ConversationM.html");
+            resp.sendRedirect("/ConversationM.html");
         } else {
             req.setAttribute("errorMsg", "Incorrect password or name");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
 }
-

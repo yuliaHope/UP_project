@@ -10,16 +10,6 @@ public class Exit extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Cookie[] cookies = req.getCookies();
-//        try {
-//            for (Cookie cookie : cookies) {
-//                cookie.setValue(null);
-//                cookie.setPath("/");
-//                cookie.setMaxAge(0);
-//                resp.addCookie(cookie);
-//            }
-//        } catch (NullPointerException e){}
-
         resp.sendRedirect("/login.jsp");
     }
 }

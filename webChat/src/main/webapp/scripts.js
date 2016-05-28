@@ -340,7 +340,6 @@ function ajax(method, url, data, continueWith, continueWithError) {
         }
 
         if (isError(xhr.responseText)) {
-            visibleServerErr('visible');
             continueWithError('Error on the server side, response ' + xhr.responseText);
             return;
         }

@@ -1,7 +1,5 @@
 package homeServlets;
 
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -31,14 +29,6 @@ public class FileKeyStorage {
         userMap.put(password, name);
         fw.close();
     }
-
-    public static String getByUsername(String username) {
-                return userMap.entrySet().stream()
-                                .filter(v -> v.getValue().equals(username))
-                                .map(Map.Entry::getKey)
-                                .findAny()
-                                .orElse(null);
-            }
 
     public static String getUserByUid(String uid) {
         return userMap.get(uid);

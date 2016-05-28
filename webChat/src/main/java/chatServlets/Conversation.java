@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +39,10 @@ public class Conversation extends HttpServlet {
             Portion portion = new Portion(index);
             List<Message> messages = messageStorage.getPortion(portion);
             String responseBody = MessageHelper.buildServerResponseBody(messages, messageStorage.size());
-            resp.getOutputStream().println(responseBody);
-        } catch (InvalidTokenException e) {
+            PrintWriter out = resp.getWriter();
+            out.println(responseBody);
+            out.flush();
+        } catch (Exception e) {
             resp.sendError(400, "Bad Request");
         }
     }
